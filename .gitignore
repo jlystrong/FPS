@@ -58,3 +58,14 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+/Assets/[Ss]treamingAssets/
+/Assets/AssetStoreTools*
+/Cache/
+/Assets/Output/
+/Assets/Slua/LuaObject/
+/[Mm]anifestUpload/
+/[Pp]roj/
+/Assets/Spine/
+
+

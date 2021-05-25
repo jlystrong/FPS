@@ -63,8 +63,6 @@ public class MouseLook : PlayerComponent
 		currentRollAngle = Mathf.Lerp(currentRollAngle, Player.LookInput.Get().x * rollAngle, Time.deltaTime * rollSpeed);
 		lookRootTrans.localRotation = Quaternion.Euler(lookAngles.x, 0f, 0f);
 		playerRootTrans.localRotation = Quaternion.Euler(0f, lookAngles.y, 0f);
-        
-        Player.LookInput.Set(Vector2.zero);
     }
 
 

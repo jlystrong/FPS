@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunControllerBase : MonoBehaviour
+public class EquipmentItem : EquipmentComponent
 {
-    
+    public Animator m_Animator;
+
 }

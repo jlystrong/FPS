@@ -13,10 +13,10 @@ public class Spring
         m_OrigRotation=transform.localRotation;
     }
     public void AddPosition(Vector3 offset){
-        m_Transform.localPosition+=offset;
+        m_Transform.localPosition+=offset*Time.deltaTime;
     }
     public void AddRotation(Vector3 offset){
-        m_Transform.localEulerAngles+=offset;
+        m_Transform.localEulerAngles+=offset*Time.deltaTime;
     }
 
     public void Update(float posLerpSpeed,float rotLerpSpeed){

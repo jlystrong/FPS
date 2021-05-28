@@ -34,6 +34,7 @@ public class EquipmentHandler : PlayerComponent
         newItem.localEulerAngles=Vector3.zero;
 
         m_CurrentItem=newItem.GetComponent<EquipmentItem>();
+        Player.m_CurrentItem=m_CurrentItem;
         m_BaseSettings.AnimController=m_CurrentItem.m_Animator;
 
         OnSelected(true);

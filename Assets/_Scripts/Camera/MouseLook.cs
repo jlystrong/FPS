@@ -24,16 +24,17 @@ public class MouseLook : PlayerComponent
 
     [BHeader("Motion")]
     public float sensitivity = 0.1f;
+    public float sensitivityYMul=0.5f;
     public float aimSensitivity = 0.05f;
-    public float rollAngle = 10f;
-    public float rollSpeed = 3f;
+    public float moveSensitivity=0.5f;
+    public float moveResistance=3f;
 
     [BHeader("Rotation Limits")]
     public Vector2 defaultLookLimits=new Vector2(-60f,90f);
 
 
     private Vector2 lookAngles;
-    private float currentRollAngle;
+    private Vector2 lookAngleSpeed;
 
     private void Awake(){
         SensitivityFactor = 1f;
@@ -55,16 +56,22 @@ public class MouseLook : PlayerComponent
         float tmpSensitivity=Player.Aim.Active?aimSensitivity:sensitivity;
         tmpSensitivity*=SensitivityFactor;
 
-        lookAngles.x += Player.LookInput.Get().y * tmpSensitivity * (invert ? 1f : -1f);
-		lookAngles.y += Player.LookInput.Get().x * tmpSensitivity;
+        Vector2 moveAngles=Vector2.zero;
+        moveAngles.x=Player.LookInput.Get().y * tmpSensitivity * (invert ? 1f : -1f);
+        moveAngles.y=Player.LookInput.Get().x * tmpSensitivity * sensitivityYMul;
+        lookAngles+=moveAngles;
+        lookAngleSpeed+=moveAngles*moveSensitivity;
 
         lookAngles.x = ClampAngle(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
 
-		currentRollAngle = Mathf.Lerp(currentRollAngle, Player.LookInput.Get().x * rollAngle, Time.deltaTime * rollSpeed);
 		lookRootTrans.localRotation = Quaternion.Euler(lookAngles.x, 0f, 0f);
 		playerRootTrans.localRotation = Quaternion.Euler(0f, lookAngles.y, 0f);
     }
-
+    void Update(){
+        lookAngles+=lookAngleSpeed*Time.deltaTime;
+        lookAngles.x = ClampAngle(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
+        lookAngleSpeed=Vector2.Lerp(lookAngleSpeed,Vector2.zero,Time.deltaTime*moveResistance);
+    }
 
     private float ClampAngle(float angle, float min, float max) {
 		if(angle > 360f)

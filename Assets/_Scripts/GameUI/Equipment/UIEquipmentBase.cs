@@ -15,10 +15,17 @@ public class UIEquipmentBase : PlayerComponentFinder
         dragger.onDrag=OnDrag;
         dragger.onBeginDrag=OnBeginDrag;
         dragger.onEndDrag=OnEndDrag;
+        
+        SimpleButton fireButton=btnFireObj.GetComponent<SimpleButton>();
+        fireButton.onDown=OnFireDown;
+        fireButton.onUp=OnFireUp;
+        
+        SimpleButton reloadBtn=btnReloadObj.GetComponent<SimpleButton>();
+        reloadBtn.onClick=OnReloadClick;
     }
 
     
-    void FixedUpdate(){
+    void Update(){
         if(Time.realtimeSinceStartup-lastDragTime>=0.05f){
             Player.LookInput.Set(Vector2.zero);
         }
@@ -29,8 +36,20 @@ public class UIEquipmentBase : PlayerComponentFinder
     }
     private void OnBeginDrag(){
         Player.LookInput.Set(Vector2.zero);
+        lastDragTime=Time.realtimeSinceStartup;
     }
     private void OnEndDrag(){
         Player.LookInput.Set(Vector2.zero);
+        lastDragTime=0;
+    }
+
+    private void OnFireDown(Transform btnTrans){
+        Player.m_CurrentItem.FireDown();
+    }
+    private void OnFireUp(Transform btnTrans){
+        Player.m_CurrentItem.FireUp();
+    }
+    private void OnReloadClick(Transform btnTrans){
+        Player.m_CurrentItem.Reload();
     }
 }

@@ -8,9 +8,17 @@ public class Player : MonoBehaviour
 
     public Value<Vector2> LookInput	= new Value<Vector2>(Vector2.zero);
     public Value<bool> ViewLocked=new Value<bool>(false);
-    public Activity Aim = new Activity();
 
+    public Value<float> MoveCycle = new Value<float>();
+	public System.Action MoveCycleEnded = null;
     public Value<Vector3> Velocity=new Value<Vector3>(Vector3.zero);
 
     public EquipmentItem m_CurrentItem;
+
+    public Activity Walk = new Activity();
+	public Activity Run = new Activity();
+    public Activity Aim = new Activity();
+    public Activity Reload = new Activity();
+
+    public System.Action fireAction = null;
 }

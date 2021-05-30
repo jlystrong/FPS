@@ -176,6 +176,9 @@ MonoBehaviour:
   ViewLocked:
     m_CurrentValue: 0
     m_PreviousValue: 0
+  MoveCycle:
+    m_CurrentValue: 0
+    m_PreviousValue: 0
   Velocity:
     m_CurrentValue: {x: 0, y: 0, z: 0}
     m_PreviousValue: {x: 0, y: 0, z: 0}
@@ -190,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 255806758}
   m_Layer: 6
-  m_Name: Offset2
+  m_Name: Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255806757}
   m_LocalRotation: {x: 0.01745245, y: 0, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: -0.046, y: 0.0852, z: -0.1966}
+  m_LocalPosition: {x: -0.046, y: 0.083, z: -0.291}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465943113}
@@ -856,7 +859,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1505219078}
+  - {fileID: 2025769190}
   m_Father: {fileID: 815475934}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -874,16 +877,176 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sway:
     Enabled: 1
-    multiplier: 1
-    AimMultiplier: 0.2
-    LookPositionSway: {x: 0.2, y: -0.2, z: 0}
-    LookRotationSway: {x: 100, y: 100, z: 50}
+    Multiplier: 0.05
+    AimMultiplier: 0.02
+    LookPositionSway: {x: -0.01, y: -0.005, z: 0}
+    LookRotationSway: {x: 0.2, y: 0.35, z: 0}
     FallSway: {x: 0, y: 0, z: 0}
     StrafePositionSway: {x: 0, y: 0, z: 0}
     StrafeRotationSway: {x: 0, y: 0, z: 0}
   Input:
     LookInputMultiplier: 1
-    MaxLookInput: 20
+    MaxLookInput: 200
+  IdleState:
+    PositionSpring:
+      Stiffness: {x: 0.012, y: 0.012, z: 0.012}
+      Damping: {x: 0.28, y: 0.28, z: 0.28}
+    RotationSpring:
+      Stiffness: {x: 0.015, y: 0.015, z: 0.015}
+      Damping: {x: 0.28, y: 0.28, z: 0.28}
+    HasEntryOffset: 0
+    EntryOffsetDuration: 1
+    LerpToDefaultOffestSpeed: 2
+    EntryOffset:
+      Enabled: 1
+      PositionOffset: {x: 0, y: 0, z: 0}
+      RotationOffset: {x: 0, y: 0, z: 0}
+    Offset:
+      Enabled: 1
+      PositionOffset: {x: 0, y: 0, z: 0}
+      RotationOffset: {x: 0, y: 0, z: 0}
+    Bob:
+      Enabled: 1
+      BobSpeedMultiplier: 1
+      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
+      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+    Noise:
+      MaxJitter: 0.1
+      NoiseSpeed: 1
+      PosNoiseAmplitude: {x: 0.02, y: 0.04, z: 0.015}
+      RotNoiseAmplitude: {x: 0.04, y: 0.05, z: 0.05}
+    EnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    ExitForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    PosEnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    PosExitForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+  WalkState:
+    PositionSpring:
+      Stiffness: {x: 0.012, y: 0.012, z: 0.012}
+      Damping: {x: 0.28, y: 0.28, z: 0.28}
+    RotationSpring:
+      Stiffness: {x: 0.015, y: 0.015, z: 0.015}
+      Damping: {x: 0.28, y: 0.28, z: 0.28}
+    HasEntryOffset: 0
+    EntryOffsetDuration: 1
+    LerpToDefaultOffestSpeed: 2
+    EntryOffset:
+      Enabled: 1
+      PositionOffset: {x: 0, y: 0, z: 0}
+      RotationOffset: {x: 0, y: 0, z: 0}
+    Offset:
+      Enabled: 1
+      PositionOffset: {x: 0, y: 0, z: 0}
+      RotationOffset: {x: 0, y: 0, z: 0}
+    Bob:
+      Enabled: 1
+      BobSpeedMultiplier: 1
+      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
+      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+    Noise:
+      MaxJitter: 0.1
+      NoiseSpeed: 1
+      PosNoiseAmplitude: {x: 0.02, y: 0.04, z: 0.015}
+      RotNoiseAmplitude: {x: 0.04, y: 0.05, z: 0.05}
+    EnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    ExitForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    PosEnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    PosExitForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+  RunState:
+    PositionSpring:
+      Stiffness: {x: 0.02, y: 0.02, z: 0.02}
+      Damping: {x: 0.37, y: 0.37, z: 0.37}
+    RotationSpring:
+      Stiffness: {x: 0.1, y: 0.1, z: 0.1}
+      Damping: {x: 0.25, y: 0.25, z: 0.25}
+    HasEntryOffset: 1
+    EntryOffsetDuration: 0.6
+    LerpToDefaultOffestSpeed: 4.5
+    EntryOffset:
+      Enabled: 1
+      PositionOffset: {x: -1.5, y: -1, z: -6}
+      RotationOffset: {x: 3, y: -2, z: 7}
+    Offset:
+      Enabled: 1
+      PositionOffset: {x: -4.2, y: -3.5, z: -3.5}
+      RotationOffset: {x: 14, y: -25, z: 27}
+    Bob:
+      Enabled: 1
+      BobSpeedMultiplier: 1
+      PositionAmplitude: {x: 25, y: -25, z: 5}
+      RotationAmplitude: {x: 30, y: 55, z: 55}
+    Noise:
+      MaxJitter: 0
+      NoiseSpeed: 0.01
+      PosNoiseAmplitude: {x: 0, y: 0, z: 0}
+      RotNoiseAmplitude: {x: 0, y: 0, z: 0}
+    EnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    ExitForce:
+      Force: {x: 0.4, y: -0.8, z: 1.7}
+      Distribution: 12
+    PosEnterForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    PosExitForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+  AimState:
+    PositionSpring:
+      Stiffness: {x: 0.04, y: 0.04, z: 0.03}
+      Damping: {x: 0.4, y: 0.4, z: 0.4}
+    RotationSpring:
+      Stiffness: {x: 0.02, y: 0.01, z: 0.01}
+      Damping: {x: 0.25, y: 0.25, z: 0.25}
+    HasEntryOffset: 0
+    EntryOffsetDuration: 1
+    LerpToDefaultOffestSpeed: 2
+    EntryOffset:
+      Enabled: 1
+      PositionOffset: {x: 0, y: 0, z: 0}
+      RotationOffset: {x: 0, y: 0, z: 0}
+    Offset:
+      Enabled: 1
+      PositionOffset: {x: -15.49, y: 4.35, z: -12}
+      RotationOffset: {x: 0.1, y: 0.85, z: -1.6}
+    Bob:
+      Enabled: 0
+      BobSpeedMultiplier: 1
+      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
+      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+    Noise:
+      MaxJitter: 0.1
+      NoiseSpeed: 0.01
+      PosNoiseAmplitude: {x: 0.01, y: 0.02, z: 0.0075}
+      RotNoiseAmplitude: {x: 0.04, y: 0.02, z: 0.05}
+    EnterForce:
+      Force: {x: 0.3, y: 0.22, z: -0.4}
+      Distribution: 5
+    ExitForce:
+      Force: {x: -0.1, y: -0.3, z: 0.8}
+      Distribution: 5
+    PosEnterForce:
+      Force: {x: -0.0005, y: 0, z: 0}
+      Distribution: 3
+    PosExitForce:
+      Force: {x: -0.0006, y: -0.0005, z: 0}
+      Distribution: 3
 --- !u!114 &503024282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,15 +1436,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b52c6f259ed44d709047d0f04ce7c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRootTrans: {fileID: 929997775}
-  playerRootTrans: {fileID: 231820662}
-  invert: 0
-  sensitivity: 0.5
-  sensitivityYMul: 0.5
-  aimSensitivity: 0.25
-  moveSensitivity: 0.5
-  moveResistance: 50
-  defaultLookLimits: {x: -60, y: 90}
+  m_LookRoot: {fileID: 929997775}
+  m_PlayerRoot: {fileID: 231820662}
+  m_Invert: 0
+  m_Sensitivity: 0.1
+  m_SensitivityYMul: 0.5
+  m_AimSensitivity: 0.05
+  m_SmoothSensitivity: 0.15
+  m_SmoothResistance: 50
+  m_DefaultLookLimits: {x: -60, y: 75}
 --- !u!1 &1169003518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1730,7 @@ GameObject:
   - component: {fileID: 1505219078}
   - component: {fileID: 1505219079}
   m_Layer: 6
-  m_Name: Offset1
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1580,12 +1743,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505219077}
-  m_LocalRotation: {x: -0.007717028, y: -0.0000000018626827, z: -1.4552208e-11, w: 0.99997026}
-  m_LocalPosition: {x: 0.04, y: -0.068, z: 0.192}
+  m_LocalRotation: {x: -0, y: -7.4718e-14, z: 1.4552063e-11, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 255806758}
-  m_Father: {fileID: 503024280}
+  m_Father: {fileID: 2025769190}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.884, y: 0, z: 0}
 --- !u!114 &1505219079
@@ -1600,6 +1763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169489d2d52f94545b7d1853bb626cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Radius: 0.03
+  m_AlwaysDraw: 1
 --- !u!1 &1516479111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,8 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_GeneralSettings:
-    SpringPosLerpSpeed: 25
-    SpringRotLerpSpeed: 15
+    SpringLerpSpeed: 25
     PositionBobOffset: 0
     RotationBobOffset: 0.5
     SpringForceMultiplier: 1
@@ -1944,6 +2109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseSettings:
     AnimController: {fileID: 0}
+  m_EquipmentSettings:
+    Muzzle: {fileID: 0}
 --- !u!1 &1901016843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2353,37 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &2025769189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2025769190}
+  m_Layer: 0
+  m_Name: Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2025769190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025769189}
+  m_LocalRotation: {x: -0.007717028, y: -0.0000000018626827, z: -1.4552208e-11, w: 0.99997026}
+  m_LocalPosition: {x: 0.04, y: -0.068, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1505219078}
+  m_Father: {fileID: 503024280}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -0.884, y: 0, z: 0}
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0

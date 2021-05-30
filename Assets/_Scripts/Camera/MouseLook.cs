@@ -4,40 +4,56 @@ using UnityEngine;
 
 public class MouseLook : PlayerComponent
 {
-    public float SensitivityFactor { get; set; }
-    public Vector2 LookAngles
-    {
-        get => lookAngles;
+    private float m_SensitivityFactor=1f;
+    public float SensitivityFactor { 
+        get=>m_SensitivityFactor; 
+        set{
+            m_SensitivityFactor=value;
+        } 
+    }
+    public Vector2 LookAngles{
+        get => m_LookAngles;
         set
         {
-            lookAngles = value;
+            m_LookAngles = value;
         }
     }
 
-    public Vector2 LastMovement { get; private set; }
+    // public Vector2 LastMovement { get; private set; }
 
     [BHeader("General", true)]
-
-    public Transform lookRootTrans = null;
-    public Transform playerRootTrans = null;
-    public bool invert = false;
+    [SerializeField]
+    private Transform m_LookRoot = null;
+    [SerializeField]
+    private Transform m_PlayerRoot = null;
+    [SerializeField]
+    private bool m_Invert = false;
 
     [BHeader("Motion")]
-    public float sensitivity = 0.1f;
-    public float sensitivityYMul=0.5f;
-    public float aimSensitivity = 0.05f;
-    public float moveSensitivity=0.5f;
-    public float moveResistance=3f;
+    [SerializeField]
+    private float m_Sensitivity = 0.1f;
+    [SerializeField]
+    private float m_SensitivityYMul=0.5f;
+    [SerializeField]
+    private float m_AimSensitivity = 0.05f;
+    [SerializeField]
+    private float m_SmoothSensitivity=0.5f;
+    [SerializeField]
+    private float m_SmoothResistance=3f;
 
     [BHeader("Rotation Limits")]
-    public Vector2 defaultLookLimits=new Vector2(-60f,90f);
+    [SerializeField]
+    private Vector2 m_DefaultLookLimits=new Vector2(-60f,90f);
 
 
-    private Vector2 lookAngles;
-    private Vector2 lookAngleSpeed;
+    private Vector2 m_LookAngles;
+    private Vector2 m_SmoothSpeed=Vector2.zero;
 
     private void Awake(){
         SensitivityFactor = 1f;
+    }
+    private void Start(){
+        m_LookAngles = new Vector2(transform.localEulerAngles.x, m_PlayerRoot.localEulerAngles.y);
     }
 
     public void MoveCamera(float verticalMove, float horizontalMove){
@@ -45,32 +61,33 @@ public class MouseLook : PlayerComponent
     }
 
     private void LateUpdate(){
-        Vector2 prevLookAngles = lookAngles;
-        if (Player.ViewLocked.Is(false) && Player.Health.Get() > 0f){
+        Vector2 prevLookAngles = m_LookAngles;
+        if (Player.ViewLocked.Is(false)){
             LookAround();
         }
-        LastMovement = lookAngles - prevLookAngles;
+        // LastMovement = m_LookAngles - prevLookAngles;
     }
 
     private void LookAround(){
-        float tmpSensitivity=Player.Aim.Active?aimSensitivity:sensitivity;
-        tmpSensitivity*=SensitivityFactor;
+        float sensitivity = Player.Aim.Active ? m_AimSensitivity : m_Sensitivity;
+        sensitivity *= SensitivityFactor;
+        
 
         Vector2 moveAngles=Vector2.zero;
-        moveAngles.x=Player.LookInput.Get().y * tmpSensitivity * (invert ? 1f : -1f);
-        moveAngles.y=Player.LookInput.Get().x * tmpSensitivity * sensitivityYMul;
-        lookAngles+=moveAngles;
-        lookAngleSpeed+=moveAngles*moveSensitivity;
+        moveAngles.x=Player.LookInput.Get().y * (m_Invert ? 1f : -1f);
+        moveAngles.y=Player.LookInput.Get().x * m_SensitivityYMul;
+        m_LookAngles+=moveAngles*sensitivity;
+        m_SmoothSpeed+=moveAngles*m_SmoothSensitivity*sensitivity;
 
-        lookAngles.x = ClampAngle(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
+        m_LookAngles+=m_SmoothSpeed*Time.deltaTime;
+        m_SmoothSpeed=Vector2.Lerp(m_SmoothSpeed,Vector2.zero,Time.deltaTime*m_SmoothResistance);
 
-		lookRootTrans.localRotation = Quaternion.Euler(lookAngles.x, 0f, 0f);
-		playerRootTrans.localRotation = Quaternion.Euler(0f, lookAngles.y, 0f);
-    }
-    void Update(){
-        lookAngles+=lookAngleSpeed*Time.deltaTime;
-        lookAngles.x = ClampAngle(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
-        lookAngleSpeed=Vector2.Lerp(lookAngleSpeed,Vector2.zero,Time.deltaTime*moveResistance);
+        m_LookAngles.x = ClampAngle(m_LookAngles.x, m_DefaultLookLimits.x, m_DefaultLookLimits.y);
+
+		m_LookRoot.localRotation = Quaternion.Euler(m_LookAngles.x, 0f, 0f);
+		m_PlayerRoot.localRotation = Quaternion.Euler(0f, m_LookAngles.y, 0f);
+
+        // Entity.LookDirection.Set(m_LookRoot.forward);
     }
 
     private float ClampAngle(float angle, float min, float max) {

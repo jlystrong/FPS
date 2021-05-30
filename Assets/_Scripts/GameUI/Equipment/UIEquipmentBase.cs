@@ -8,7 +8,7 @@ public class UIEquipmentBase : PlayerComponentFinder
     public GameObject btnFireObj;
     public GameObject btnReloadObj;
 
-    private float lastDragTime=0;
+    private bool isDragging=false;
 
     void Awake(){
         SimpleDrag dragger=touchpadObj.GetComponent<SimpleDrag>();
@@ -26,21 +26,22 @@ public class UIEquipmentBase : PlayerComponentFinder
 
     
     void Update(){
-        if(Time.realtimeSinceStartup-lastDragTime>=0.05f){
+        if(!isDragging){
             Player.LookInput.Set(Vector2.zero);
         }
+        isDragging=false;
     }
     private void OnDrag(float x,float y){
+        isDragging=true;
         Player.LookInput.Set(new Vector2(x,y));
-        lastDragTime=Time.realtimeSinceStartup;
     }
     private void OnBeginDrag(){
+        isDragging=true;
         Player.LookInput.Set(Vector2.zero);
-        lastDragTime=Time.realtimeSinceStartup;
     }
     private void OnEndDrag(){
+        isDragging=false;
         Player.LookInput.Set(Vector2.zero);
-        lastDragTime=0;
     }
 
     private void OnFireDown(Transform btnTrans){

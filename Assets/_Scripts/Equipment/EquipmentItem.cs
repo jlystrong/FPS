@@ -6,6 +6,13 @@ public class EquipmentItem : EquipmentComponent
 {
     public Animator m_Animator;
 
+    public virtual void Equip(){
+        
+    }
+    public virtual void Unequip(){
+        
+    }
+
     public virtual void FireDown(){}
     public virtual void FireUp(){}
     public virtual void Reload(){}

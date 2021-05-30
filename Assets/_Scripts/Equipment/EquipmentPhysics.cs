@@ -10,8 +10,8 @@ public class EquipmentPhysics : EquipmentComponent
     {
         public bool Enabled = true;
         [Space]
-        public float multiplier = 0.1f;
-        public float AimMultiplier = 0.02f;
+        public float Multiplier = 0.01f;
+        public float AimMultiplier = 0.002f;
         [Space]
         public Vector3 LookPositionSway;
         public Vector3 LookRotationSway;
@@ -33,5 +33,12 @@ public class EquipmentPhysics : EquipmentComponent
     [Space]
     [Group]
     public InputModule Input = null;
+
+    [Space(3f)]
+    [BHeader("STATES", true, order = 100)]
+    public EquipmentMotionState IdleState = null;
+    public EquipmentMotionState WalkState = null;
+    public EquipmentMotionState RunState = null;
+    public EquipmentMotionState AimState = null;
 
 }

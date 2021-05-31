@@ -183,6 +183,7 @@ MonoBehaviour:
     m_CurrentValue: {x: 0, y: 0, z: 0}
     m_PreviousValue: {x: 0, y: 0, z: 0}
   m_CurrentItem: {fileID: 0}
+  m_Camera: {fileID: 313080240}
 --- !u!1 &255806757
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 313080239}
+  - component: {fileID: 313080240}
   m_Layer: 0
   m_Name: WorldCameraRoot
   m_TagString: Untagged
@@ -311,6 +313,97 @@ Transform:
   m_Father: {fileID: 929997775}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &313080240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313080238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e252e691ccb479cab8e68257f76e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 1516479115}
+  m_Springs:
+    SpringLerpSpeed: 25
+    ForceSprings:
+      Position:
+        Stiffness: {x: 0.1, y: 0.1, z: 0.1}
+        Damping: {x: 0.25, y: 0.25, z: 0.25}
+      Rotation:
+        Stiffness: {x: 0.1, y: 0.1, z: 0.1}
+        Damping: {x: 0.25, y: 0.25, z: 0.25}
+    HeadbobSprings:
+      Position:
+        Stiffness: {x: 0.02, y: 0.02, z: 0.02}
+        Damping: {x: 0.25, y: 0.25, z: 0.25}
+      Rotation:
+        Stiffness: {x: 0.02, y: 0.02, z: 0.02}
+        Damping: {x: 0.25, y: 0.25, z: 0.25}
+  m_CamShakes:
+    ShakeSpringSettings:
+      Stiffness: {x: 0.01, y: 0.01, z: 0.01}
+      Damping: {x: 0.25, y: 0.25, z: 0.25}
+    ExplosionShake:
+      PositionAmplitude: {x: 0.05, y: 0.05, z: 0.08}
+      RotationAmplitude: {x: 0, y: 0, z: 1}
+      Decay:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      Duration: 1.5
+      Speed: 40
+    DeathShake:
+      PositionAmplitude: {x: 0.005, y: 0.005, z: 0.005}
+      RotationAmplitude: {x: 0, y: 0, z: 0.2}
+      Decay:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      Duration: 1
+      Speed: 25
 --- !u!1 &410953004
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +934,8 @@ GameObject:
   - component: {fileID: 503024280}
   - component: {fileID: 503024282}
   - component: {fileID: 503024281}
+  - component: {fileID: 503024283}
+  - component: {fileID: 503024284}
   m_Layer: 6
   m_Name: M1A
   m_TagString: Untagged
@@ -1061,8 +1156,183 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 465943114}
   Mode: 3
-  FireDuration: 0.25
+  FireDuration: 0.1
   ReloadDuration: 2.5
+--- !u!114 &503024283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503024279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14db9241bd7914392a44f402a93ffa75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WeaponModelRecoil:
+    ChangeFireModeInterval: 1
+    RecoilOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.00527966
+        value: 0.09973171
+        inSlope: 1.5422992
+        outSlope: 1.5422992
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.175
+      - serializedVersion: 3
+        time: 0.9772186
+        value: 0.89678574
+        inSlope: 0.034449577
+        outSlope: 0.034449577
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.2500099
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PositionSpring:
+      Stiffness: {x: 0.03, y: 0.03, z: 0.03}
+      Damping: {x: 0.3, y: 0.3, z: 0.3}
+    RotationSpring:
+      Stiffness: {x: 0.02, y: 0.02, z: 0.02}
+      Damping: {x: 0.3, y: 0.3, z: 0.3}
+    ShootForce:
+      RotForce: {x: -0.25, y: -0.15, z: -0.125}
+      PosForce: {x: 0, y: -0.1, z: 0}
+      Distribution: 3
+      JitterForce:
+        xJitter: 0.25
+        yJitter: 0.86
+        zJitter: 0.25
+    AimShootForce:
+      RotForce: {x: 0, y: 0, z: 0}
+      PosForce: {x: 0, y: 0, z: 0}
+      Distribution: 3
+      JitterForce:
+        xJitter: 0.2
+        yJitter: 1
+        zJitter: 0.2
+    ChangeFireModeForce:
+      RotForce: {x: -0.15, y: 0.15, z: 0.4}
+      PosForce: {x: 0.04, y: -0.04, z: -0.1}
+      Distribution: 2
+      JitterForce:
+        xJitter: 0.2
+        yJitter: 0.2
+        zJitter: 0.2
+  m_CameraRecoil:
+    AimMultiplier: 0.9
+    RecoilPatternMultiplier: 1.3
+    RecoilPattern:
+    - {x: -5, y: 1}
+    - {x: -5, y: 0}
+    - {x: -6, y: 1}
+    - {x: -3, y: 0}
+    - {x: -7, y: -1}
+    - {x: -6, y: 1}
+    - {x: -7, y: 2}
+    - {x: -4.5, y: -2}
+    - {x: -5, y: -3}
+    - {x: -4.5, y: 5}
+    - {x: -3, y: 2}
+    - {x: -2, y: 1.5}
+    - {x: -1, y: 4}
+    - {x: -3, y: 1}
+    - {x: -3, y: 2}
+    RecoilControlEasing: 3
+    RecoilControlDelay: 0.5
+    RecoilControlDuration: 3
+    SpringData:
+      Stiffness: {x: 0.1, y: 0.1, z: 0.1}
+      Damping: {x: 0.4, y: 0.3, z: 0.3}
+    ShootForce:
+      RotForce: {x: -1, y: 0, z: -0.25}
+      PosForce: {x: 0, y: 0, z: -1}
+      Distribution: 3
+      JitterForce:
+        xJitter: 0
+        yJitter: 0
+        zJitter: 0
+    ShootShake:
+      PositionAmplitude: {x: 0, y: 0, z: 0}
+      RotationAmplitude: {x: 0, y: 0, z: 0}
+      Decay:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      Duration: 2
+      Speed: 1
+--- !u!114 &503024284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503024279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c579e21910d147ea83d32ad1406d129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReloadRecoils:
+  - ReloadForce:
+      RotForce: {x: -0.1, y: 0, z: 0}
+      PosForce: {x: 0, y: 0, z: 0}
+      Distribution: 3
+      JitterForce:
+        xJitter: 0.2
+        yJitter: 0.2
+        zJitter: 0.2
+  - ReloadForce:
+      RotForce: {x: 1, y: 0, z: 0}
+      PosForce: {x: 0, y: 1, z: 0}
+      Distribution: 3
+      JitterForce:
+        xJitter: 0.2
+        yJitter: 0.2
+        zJitter: 0.2
+  - ReloadForce:
+      RotForce: {x: -1, y: 0, z: 0}
+      PosForce: {x: 0, y: 2, z: 0}
+      Distribution: 5
+      JitterForce:
+        xJitter: 0.2
+        yJitter: 0.2
+        zJitter: 0.2
+  - ReloadForce:
+      RotForce: {x: 1, y: 1, z: 0.2}
+      PosForce: {x: 1, y: 1, z: -1}
+      Distribution: 1
+      JitterForce:
+        xJitter: 0.5
+        yJitter: 0.5
+        zJitter: 0.5
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0

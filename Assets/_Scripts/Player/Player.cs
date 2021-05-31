@@ -20,5 +20,11 @@ public class Player : MonoBehaviour
     public Activity Aim = new Activity();
     public Activity Reload = new Activity();
 
-    public System.Action fireAction = null;
+    public System.Action startFireAction = null;
+    public System.Action endFireAction = null;
+    public System.Action<bool> fireAction = null;
+
+    public FirstPersonCamera Camera { get => m_Camera; }
+    [SerializeField]
+	private FirstPersonCamera m_Camera = null;
 }

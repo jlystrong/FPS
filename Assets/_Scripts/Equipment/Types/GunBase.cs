@@ -12,7 +12,7 @@ public class GunBase : EquipmentItem
 
     [BHeader("Fire Settings")]
     public FireMode Mode=FireMode.FullAtuo;
-    public float FireDuration=0.25f;
+    public float FireDuration=0.1f;
     public float ReloadDuration=2.5f;
 
 
@@ -21,13 +21,37 @@ public class GunBase : EquipmentItem
 
     private void Awake() {
         EquipmentAnimEventReceiver eventReceiver=GetComponentInChildren<EquipmentAnimEventReceiver>();
-        eventReceiver.onAnimEvent=OnAnimEvent;
+        eventReceiver.onAnimEvent+=OnAnimEvent;
+
+        AnimatorOverrideController ac = m_Animator.runtimeAnimatorController as AnimatorOverrideController;
+        AnimationClipPair[] clipPairs =  ac.clips;
+        for(int i=0;i<clipPairs.Length;i++){
+            if(clipPairs[i].originalClip.name=="Fire"){
+                float origLength=clipPairs[i].originalClip.length;
+                m_Animator.SetFloat("FireSpeed",Mathf.Pow(origLength/FireDuration,0.3f));
+            }else if(clipPairs[i].originalClip.name=="Reload"){
+                float origLength=clipPairs[i].originalClip.length;
+                m_Animator.SetFloat("ReloadSpeed",origLength/ReloadDuration);
+            }
+        }
     }
 
     public override void FireDown(){
         isFiring=true;
+        continuouslyUsedTimes=0;
+        if(Time.time-m_LastFireTime>=FireDuration){
+            if(Player.startFireAction!=null){
+                Player.startFireAction();
+            } 
+        }
     }
     public override void FireUp(){
+        if(isFiring){
+            if(Player.endFireAction!=null){
+                Player.endFireAction();
+            }
+        }
+        continuouslyUsedTimes=0;
         isFiring=false;
     }
     public override void Reload(){
@@ -38,24 +62,32 @@ public class GunBase : EquipmentItem
     void Update(){
         if(isFiring){
             if(Time.time-m_LastFireTime>=FireDuration){
-                m_Animator.SetTrigger("ToFire");
                 m_LastFireTime=Time.time;
+                m_Animator.SetTrigger("ToFire");
+                OnFire();
             }
         }
     }
 
     public void OnAnimEvent(string param){
         switch(param){
-            case "Fire":OnFire();break;
-            case "Reloaded":OnReloaded();break;
+            case "Fire":OnFireAnim();break;
+            case "Reloaded":OnReloadedAnim();break;
             default:break;
         }
     }
 
     public void OnFire(){
-        Debug.Log("Fire");
+        // Debug.Log("Fire");
+        continuouslyUsedTimes=continuouslyUsedTimes+1;
+        if(Player.fireAction!=null){
+            Player.fireAction(true);
+        }
     }
-    public void OnReloaded(){
+    public void OnFireAnim(){
+        // Debug.Log("FireAnim");
+    }
+    public void OnReloadedAnim(){
         Debug.Log("Reloaded");
     }
 }

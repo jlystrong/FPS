@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171904625}
   m_LocalRotation: {x: 0.000000040978183, y: 0.000000022351736, z: 0.00000009580979, w: 1}
-  m_LocalPosition: {x: -0.7644999, y: 0.005800009, z: 0.07109976}
+  m_LocalPosition: {x: -0.778, y: 0.007, z: 0.051}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 106323072}
@@ -10674,7 +10674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487399089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7579, y: 0, z: 0.0354}
+  m_LocalPosition: {x: -0.781, y: 0.002, z: 0.035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1064706252}
@@ -27643,8 +27643,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.8113208, g: 0.661195, b: 0.18752226, a: 0.3137255}
-      maxColor: {r: 0.5754717, g: 0.2851345, b: 0.16558382, a: 0.15686275}
+      minColor: {r: 0.8113208, g: 0.661195, b: 0.18752226, a: 0.7294118}
+      maxColor: {r: 0.5754717, g: 0.2851345, b: 0.16558382, a: 0.3882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -27706,7 +27706,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6
+      scalar: 0.8
       minScalar: 0.4
       maxCurve:
         serializedVersion: 2
@@ -28397,7 +28397,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 2
+        scalar: 1
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -37289,7 +37289,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.8113208, g: 0.661195, b: 0.18752226, a: 0.4117647}
+      minColor: {r: 0.8113208, g: 0.661195, b: 0.18752226, a: 0.57254905}
       maxColor: {r: 0.5754717, g: 0.2851345, b: 0.16558382, a: 0.3882353}
       maxGradient:
         serializedVersion: 2
@@ -38043,7 +38043,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 2
+        scalar: 1
         minScalar: 0
         maxCurve:
           serializedVersion: 2

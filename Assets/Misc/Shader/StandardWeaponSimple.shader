@@ -32,12 +32,9 @@ Shader "FPS/StandardWeaponSimple"
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragment
 
-
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/ShaderVariablesFunctions.hlsl"
 
             TEXTURE2D(_MainTex);SAMPLER(sampler_MainTex);
             TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);

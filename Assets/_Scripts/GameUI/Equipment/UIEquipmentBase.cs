@@ -7,6 +7,7 @@ public class UIEquipmentBase : PlayerComponentFinder
     public GameObject touchpadObj;
     public GameObject btnFireObj;
     public GameObject btnReloadObj;
+    public GameObject btnAimObj;
 
     private bool isDragging=false;
 
@@ -22,6 +23,9 @@ public class UIEquipmentBase : PlayerComponentFinder
         
         SimpleButton reloadBtn=btnReloadObj.GetComponent<SimpleButton>();
         reloadBtn.onClick=OnReloadClick;
+
+        SimpleButton aimBtn=btnAimObj.GetComponent<SimpleButton>();
+        aimBtn.onClick=OnAimClick;
     }
 
     
@@ -52,5 +56,8 @@ public class UIEquipmentBase : PlayerComponentFinder
     }
     private void OnReloadClick(Transform btnTrans){
         Player.m_CurrentItem.Reload();
+    }
+    private void OnAimClick(Transform btnTrans){
+        Player.m_CurrentItem.Aim();
     }
 }

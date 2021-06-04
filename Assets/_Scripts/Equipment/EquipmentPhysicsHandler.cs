@@ -156,18 +156,18 @@ public class EquipmentPhysicsHandler : PlayerComponent
 
         if (m_CurrentState.HasEntryOffset){
             if (m_ChangeToDefaultOffestTime > Time.time){
-                m_StatePosition += m_CurrentState.EntryOffset.PositionOffset * 0.0001f;
-                m_StateRotation += m_CurrentState.EntryOffset.RotationOffset * 0.02f;
+                m_StatePosition += m_CurrentState.EntryOffset.PositionOffset*0.0001f;
+                m_StateRotation += m_CurrentState.EntryOffset.RotationOffset*0.001f;
             }
             else{
                 m_LerpedOffset = Mathf.Lerp(m_LerpedOffset, 1, Time.deltaTime * m_CurrentState.LerpToDefaultOffestSpeed);
-                m_StatePosition += m_CurrentState.Offset.PositionOffset * 0.0001f * m_LerpedOffset;
-                m_StateRotation += m_CurrentState.Offset.RotationOffset * 0.02f * m_LerpedOffset;
+                m_StatePosition += m_CurrentState.Offset.PositionOffset * m_LerpedOffset*0.0001f;
+                m_StateRotation += m_CurrentState.Offset.RotationOffset * m_LerpedOffset*0.0001f;
             }
         }
         else{
-            m_StatePosition += m_CurrentState.Offset.PositionOffset * 0.0001f;
-            m_StateRotation += m_CurrentState.Offset.RotationOffset * 0.02f;
+            m_StatePosition += m_CurrentState.Offset.PositionOffset*0.0001f;
+            m_StateRotation += m_CurrentState.Offset.RotationOffset*0.001f;
         }
     }
     private void UpdateBob(){

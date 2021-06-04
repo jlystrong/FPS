@@ -144,6 +144,12 @@ public class Spring
             m_Transform.localEulerAngles += m_LerpedPosition;
     }
 
+    public static Vector3 CalculateReal(Vector3 realPos,Vector3 stiffness,Vector3 damping){
+        Vector3 v1 = 2*Vector3.Scale(Vector3.Scale(realPos,stiffness),(Vector3.one-damping));
+        Vector3 v2 = Vector3.Scale((Vector3.one-stiffness),(Vector3.one-damping))+Vector3.one;
+        return new Vector3(v1.x/v2.x,v1.y/v2.y,v1.z/v2.z);
+    }
+
     #region
     public enum Type
     {

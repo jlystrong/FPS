@@ -96,7 +96,11 @@ public class WeaponRecoil : EquipmentComponent
     private void ChangeFireForce(){
         if(m_LastChangeFireModeTime+m_WeaponModelRecoil.ChangeFireModeInterval<=Time.time && m_AttacheEquipment.ContinuouslyUsedTimes>=3){
             m_LastChangeFireModeTime=Time.time;
-            m_WeaponModelRecoil.ChangeFireModeForce.PlayRecoilForce(1f, m_EHandler.PhysicsHandler.RotationSpring, m_EHandler.PhysicsHandler.PositionSpring);
+            float forceMul=1f;
+            if(Player.Aim.Active){
+                forceMul=0.25f;
+            }
+            m_WeaponModelRecoil.ChangeFireModeForce.PlayRecoilForce(forceMul, m_EHandler.PhysicsHandler.RotationSpring, m_EHandler.PhysicsHandler.PositionSpring);
         }
     }
 }

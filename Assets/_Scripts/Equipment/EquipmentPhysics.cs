@@ -41,4 +41,10 @@ public class EquipmentPhysics : EquipmentComponent
     public EquipmentMotionState RunState = null;
     public EquipmentMotionState AimState = null;
 
+    // void Awake(){
+    //     AimState.Offset.PositionOffset=Spring.CalculateReal(AimState.Offset.PositionOffset,AimState.PositionSpring.Stiffness,AimState.PositionSpring.Damping);
+    //     AimState.Offset.RotationOffset=Spring.CalculateReal(AimState.Offset.RotationOffset,AimState.RotationSpring.Stiffness,AimState.RotationSpring.Damping);
+    // }
+
+
 }

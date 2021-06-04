@@ -5,9 +5,9 @@ using UnityEngine;
 public class EquipmentMotionState
 {
     [BHeader("Spring Settings")]
-
+    [Group]
     public Spring.Data PositionSpring = Spring.Data.Default;
-
+    [Group]
     public Spring.Data RotationSpring = Spring.Data.Default;
 
     [Space(4f)]
@@ -26,11 +26,11 @@ public class EquipmentMotionState
     public OffsetModule EntryOffset;
 
     [Space]
-
+    [Group]
     public OffsetModule Offset;
-
+    [Group]
     public BobModule Bob;
-
+    [Group]
     public NoiseModule Noise;
 
     [Space(4f)]

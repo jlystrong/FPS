@@ -119,14 +119,21 @@ public class EquipmentPhysicsHandler : PlayerComponent
 
 
     private void UpdateState(){
-        if (Player.Run.Active && Player.Velocity.Val.sqrMagnitude > 0.2f)
+        if (Player.Velocity.Val.sqrMagnitude > 2f){
+            // Debug.Log("RunState");
             TrySetState(m_EquipmentPhysics.RunState);
-        else if (Player.Aim.Active)
+        }
+        else if (Player.Aim.Active){
             TrySetState(m_EquipmentPhysics.AimState);
-        else if (Player.Walk.Active && Player.Velocity.Val.sqrMagnitude > 0.2f)
+        }
+        else if (Player.Velocity.Val.sqrMagnitude > 0.01f){
+            // Debug.Log("WalkState");
             TrySetState(m_EquipmentPhysics.WalkState);
-        else
+        }
+        else{
+            // Debug.Log("IdleState");
             TrySetState(m_EquipmentPhysics.IdleState);
+        }
     }
     private void TrySetState(EquipmentMotionState state){
         if (m_CurrentState != state){

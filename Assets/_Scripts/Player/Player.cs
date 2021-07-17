@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
 
     public Value<float> MoveCycle = new Value<float>();
 	public System.Action MoveCycleEnded = null;
-    public Value<Vector3> Velocity=new Value<Vector3>(Vector3.zero);
+    
+    public Vector2 moveInput=Vector2.zero; 
+    public Value<Vector2> Velocity=new Value<Vector2>(Vector2.zero);
 
     public EquipmentItem m_CurrentItem;
 

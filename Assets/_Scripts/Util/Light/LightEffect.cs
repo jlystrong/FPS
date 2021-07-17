@@ -52,11 +52,11 @@ public class LightEffect : MonoBehaviour
     private bool m_PlayOnAwake = false;
 
     [SerializeField]
-    [Range(0f, 5f)]
+    [Range(0f, 10f)]
     private float m_Intensity = 1f;
 
     [SerializeField]
-    [Range(0f, 10f)]
+    [Range(0f, 20f)]
     private float m_Range = 1f;
 
     [SerializeField]

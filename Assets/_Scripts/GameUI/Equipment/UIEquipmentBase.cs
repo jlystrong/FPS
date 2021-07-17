@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class UIEquipmentBase : PlayerComponentFinder
 {
+    public GameObject moverObj;
     public GameObject touchpadObj;
     public GameObject btnFireObj;
     public GameObject btnReloadObj;
     public GameObject btnAimObj;
+    
 
     private bool isDragging=false;
 
     void Awake(){
+        SimpleMover mover=moverObj.GetComponent<SimpleMover>();
+        mover.onMove=OnMove;
+
         SimpleDrag dragger=touchpadObj.GetComponent<SimpleDrag>();
         dragger.onDrag=OnDrag;
         dragger.onBeginDrag=OnBeginDrag;
@@ -35,6 +40,11 @@ public class UIEquipmentBase : PlayerComponentFinder
         }
         isDragging=false;
     }
+
+    private void OnMove(Vector2 moveOffset){
+        Player.moveInput=moveOffset;
+    }
+
     private void OnDrag(float x,float y){
         isDragging=true;
         Player.LookInput.Set(new Vector2(x,y));

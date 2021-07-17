@@ -19,7 +19,7 @@ public class GunBase : EquipmentItem
     public struct EquipmentSettings{
         public Transform MuzzleEffect;
         public Transform MuzzleEndEffect;
-        public LightEffect LightEffect;
+        public LightEffect[] LightEffects;
     }
     [SerializeField]
     [Group]
@@ -117,7 +117,9 @@ public class GunBase : EquipmentItem
         if(Player.fireAction!=null){
             Player.fireAction(true);
         }
-        m_EquipmentSettings.LightEffect.Play(false);
+        for(int i=0;i<m_EquipmentSettings.LightEffects.Length;i++){
+            m_EquipmentSettings.LightEffects[i].Play(false);
+        }
         Transform muzzleEffectRootTrans=m_EquipmentSettings.MuzzleEffect.parent;
         Transform muzzleEffectTrans=Instantiate(m_EquipmentSettings.MuzzleEffect);
         muzzleEffectTrans.SetParent(muzzleEffectRootTrans,false);

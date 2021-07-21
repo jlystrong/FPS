@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Value<float> Health = new Value<float>(100f);
+    public Vector2 lookInput = Vector2.zero;
+    public bool viewLocked = false;
 
-    public Value<Vector2> LookInput	= new Value<Vector2>(Vector2.zero);
-    public Value<bool> ViewLocked=new Value<bool>(false);
-
-    public Value<float> MoveCycle = new Value<float>();
-	public System.Action MoveCycleEnded = null;
-    
-    public Vector2 moveInput=Vector2.zero; 
-    public Value<Vector2> Velocity=new Value<Vector2>(Vector2.zero);
+    public Vector2 moveInput = Vector2.zero;
+    public Vector2 velocity = Vector2.zero;
+    public int moveState=0; //0:idle 1:walk 2:run
+    public float moveCycle = 0;
+    public System.Action moveCycleEnded = null;
 
     public EquipmentItem m_CurrentItem;
 
-    public Activity Walk = new Activity();
-	public Activity Run = new Activity();
-    public Activity Aim = new Activity();
-    public Activity Reload = new Activity();
+    public bool isAiming=false;
+    public bool isReloading=false;
+    public bool isFiring=false;
 
     public System.Action startFireAction = null;
     public System.Action endFireAction = null;
@@ -28,5 +25,5 @@ public class Player : MonoBehaviour
 
     public FirstPersonCamera Camera { get => m_Camera; }
     [SerializeField]
-	private FirstPersonCamera m_Camera = null;
+    private FirstPersonCamera m_Camera = null;
 }

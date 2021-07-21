@@ -45,12 +45,9 @@ public class EquipmentPhysicsHandler : PlayerComponent
     private int m_LastFootDown;
     private float m_CurrentBobParam;
 
-    // State visualization
-    private EquipmentMotionState m_StateToVisualize = null;
-    private float m_VisualizationSpeed = 4f;
-    private bool m_FirstStepTriggered;
-
     void Awake(){
+        Player.moveCycleEnded+=OnStepTaken;
+
         m_Pivot=transform;
         m_FPHandler = GetComponent<EquipmentHandler>();
         m_FPHandler.OnSelected+=OnChangeItem;
@@ -91,7 +88,7 @@ public class EquipmentPhysicsHandler : PlayerComponent
         if (m_EquipmentPhysics == null){
 			return;
         }
-        m_LookInput = Player.LookInput.Get();
+        m_LookInput = Player.lookInput;
         m_LookInput *= m_EquipmentPhysics.Input.LookInputMultiplier;
         m_LookInput = Vector2.ClampMagnitude(m_LookInput, m_EquipmentPhysics.Input.MaxLookInput);
         m_StatePosition = Vector3.zero;
@@ -119,22 +116,17 @@ public class EquipmentPhysicsHandler : PlayerComponent
 
 
     private void UpdateState(){
-        if (Player.Velocity.Val.sqrMagnitude > 2f){
-            // Debug.Log("RunState");
-            TrySetState(m_EquipmentPhysics.RunState);
-        }
-        else if (Player.Aim.Active){
+        if (Player.isAiming){
             TrySetState(m_EquipmentPhysics.AimState);
-        }
-        else if (Player.Velocity.Val.sqrMagnitude > 0.01f){
-            // Debug.Log("WalkState");
+        }else if (Player.moveState==2){
+            TrySetState(m_EquipmentPhysics.RunState);
+        }else if (Player.moveState==1){
             TrySetState(m_EquipmentPhysics.WalkState);
-        }
-        else{
-            // Debug.Log("IdleState");
+        }else{
             TrySetState(m_EquipmentPhysics.IdleState);
         }
     }
+
     private void TrySetState(EquipmentMotionState state){
         if (m_CurrentState != state){
             if (m_CurrentState != null){
@@ -158,7 +150,7 @@ public class EquipmentPhysicsHandler : PlayerComponent
         }
     }
     private void UpdateOffset(){
-        if (!m_CurrentState.Offset.Enabled || Player.Reload.Active)
+        if (!m_CurrentState.Offset.Enabled || Player.isReloading)
             return;
 
         if (m_CurrentState.HasEntryOffset){
@@ -178,10 +170,10 @@ public class EquipmentPhysicsHandler : PlayerComponent
         }
     }
     private void UpdateBob(){
-        if (!m_CurrentState.Bob.Enabled || (Player.Velocity.Get().sqrMagnitude == 0 && m_CurrentState == m_EquipmentPhysics.AimState))
+        if (!m_CurrentState.Bob.Enabled || (Player.velocity.sqrMagnitude == 0 && m_CurrentState == m_EquipmentPhysics.AimState))
             return;
 
-        m_CurrentBobParam = Player.MoveCycle.Get() * Mathf.PI;
+        m_CurrentBobParam = Player.moveCycle * Mathf.PI;
         if (m_LastFootDown != 0)
             m_CurrentBobParam += Mathf.PI;
 
@@ -207,10 +199,10 @@ public class EquipmentPhysicsHandler : PlayerComponent
         if (!m_EquipmentPhysics.Sway.Enabled){
             return;
         }
-		float multiplier = Player.Aim.Active ? m_EquipmentPhysics.Sway.AimMultiplier : m_EquipmentPhysics.Sway.Multiplier;
+		float multiplier = Player.isAiming ? m_EquipmentPhysics.Sway.AimMultiplier : m_EquipmentPhysics.Sway.Multiplier;
 		multiplier *= Time.fixedDeltaTime;
-        m_SwayVelocity = Player.Velocity.Get();
-        if (Mathf.Abs(m_SwayVelocity.y) < 1.5f)
+        m_SwayVelocity = Player.velocity;
+        if (Mathf.Abs(m_SwayVelocity.y) < 0.1f)
 			m_SwayVelocity.y = 0f;
         Vector3 localVelocity = transform.InverseTransformDirection(m_SwayVelocity / 60);
         PositionSpring.AddForce(new Vector3(
@@ -221,24 +213,6 @@ public class EquipmentPhysicsHandler : PlayerComponent
             m_LookInput.y * m_EquipmentPhysics.Sway.LookRotationSway.x * 1.25f,
             m_LookInput.x * m_EquipmentPhysics.Sway.LookRotationSway.y * -1.25f,
             m_LookInput.x * m_EquipmentPhysics.Sway.LookRotationSway.z * -1.25f) * multiplier);
-
-        //Fall
-        // var fallSway = m_EquipmentPhysics.Sway.FallSway * m_SwayVelocity.y * 0.2f * multiplier;
-        // if (Player.IsGrounded.Get())
-        //     fallSway *= (15f * multiplier);
-        // fallSway.z = Mathf.Max(0f, m_EquipmentPhysics.Sway.FallSway.z);
-        // RotationSpring.AddForce(fallSway);
-
-        // Strafe position sway
-        PositionSpring.AddForce(new Vector3(
-            localVelocity.x * m_EquipmentPhysics.Sway.StrafePositionSway.x * 0.08f,
-            -Mathf.Abs(localVelocity.x * m_EquipmentPhysics.Sway.StrafePositionSway.y * 0.08f),
-            -localVelocity.z * m_EquipmentPhysics.Sway.StrafePositionSway.z * 0.08f) * multiplier);
-        // Strafe rotation sway
-        RotationSpring.AddForce(new Vector3(
-            -Mathf.Abs(localVelocity.x * m_EquipmentPhysics.Sway.StrafeRotationSway.x * 8f),
-            -localVelocity.x * m_EquipmentPhysics.Sway.StrafeRotationSway.y * 8f,
-            localVelocity.x * m_EquipmentPhysics.Sway.StrafeRotationSway.z * 8f) * multiplier);
     }
     private void UpdateNoise(){
         if (m_CurrentState.Noise.PosNoiseAmplitude != Vector3.zero && m_CurrentState.Noise.RotNoiseAmplitude != Vector3.zero){
@@ -254,4 +228,25 @@ public class EquipmentPhysicsHandler : PlayerComponent
             m_StateRotation.z += (Mathf.PerlinNoise(jitter + 2f, timeScale) - 0.5f) * m_CurrentState.Noise.RotNoiseAmplitude.z / 10;
         }
     }
+
+
+    private void OnStepTaken(){
+		if (Player.moveState>0 && m_EquipmentPhysics != null){
+            ApplyStepForce();
+        }
+		m_LastFootDown = m_LastFootDown == 0 ? 1 : 0;
+	}
+    private void ApplyStepForce(){
+		EquipmentPhysics.StepForceModule stepForce = null;
+		if (Player.moveState==1){
+			stepForce = m_EquipmentPhysics.WalkStepForce;
+        }else if (Player.moveState==2){
+            stepForce = m_EquipmentPhysics.RunStepForce;
+        }
+
+		if (stepForce != null && stepForce.Enabled && !Player.isAiming){
+			PositionSpring.AddForce(stepForce.PositionForce.Force * 0.0001f, stepForce.PositionForce.Distribution);
+			RotationSpring.AddForce(stepForce.RotationForce.Force * 0.01f, stepForce.RotationForce.Distribution);
+		}
+	}
 }

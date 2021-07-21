@@ -36,7 +36,7 @@ public class UIEquipmentBase : PlayerComponentFinder
     
     void Update(){
         if(!isDragging){
-            Player.LookInput.Set(Vector2.zero);
+            Player.lookInput=Vector2.zero;
         }
         isDragging=false;
     }
@@ -47,15 +47,15 @@ public class UIEquipmentBase : PlayerComponentFinder
 
     private void OnDrag(float x,float y){
         isDragging=true;
-        Player.LookInput.Set(new Vector2(x,y));
+        Player.lookInput=new Vector2(x,y);
     }
     private void OnBeginDrag(){
         isDragging=true;
-        Player.LookInput.Set(Vector2.zero);
+        Player.lookInput=Vector2.zero;
     }
     private void OnEndDrag(){
         isDragging=false;
-        Player.LookInput.Set(Vector2.zero);
+        Player.lookInput=Vector2.zero;
     }
 
     private void OnFireDown(Transform btnTrans){

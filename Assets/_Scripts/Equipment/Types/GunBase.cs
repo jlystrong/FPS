@@ -25,17 +25,6 @@ public class GunBase : EquipmentItem
     [Group]
     private EquipmentSettings m_EquipmentSettings = new EquipmentSettings();
 
-    [Serializable]
-    public struct TransformSettings{
-        public Vector3 position;
-        public Vector3 rotation;
-    }
-    [SerializeField]
-    [Group]
-    private TransformSettings m_AimSettings = new TransformSettings();
-
-    private bool isFiring=false;
-    private bool isReloading=false;
     private float m_LastFireTime=0f;
 
     private void Awake() {
@@ -56,7 +45,10 @@ public class GunBase : EquipmentItem
     }
 
     public override void FireDown(){
-        isFiring=true;
+        if(Player.isReloading){
+            return ;
+        }
+        Player.isFiring=true;
         continuouslyUsedTimes=0;
         if(Time.time-m_LastFireTime>=FireDuration){
             if(Player.startFireAction!=null){
@@ -65,35 +57,41 @@ public class GunBase : EquipmentItem
         }
     }
     public override void FireUp(){
-        if(isFiring){
+        if(Player.isFiring){
             if(Player.endFireAction!=null){
                 Player.endFireAction();
             }
             OnFireEnd();
         }
         continuouslyUsedTimes=0;
-        isFiring=false;
+        Player.isFiring=false;
     }
     public override void Reload(){
-        isFiring=false;
-        isReloading=true;
-        m_Animator.SetTrigger("ToReload");
-    }
-    public override void Aim(){
-        if(isReloading){
+        if(Player.isReloading){
             return ;
         }
-        if(Player.Aim.Active){
-            Player.Aim.ForceStop();
+        Player.isFiring=false;
+        Player.isReloading=true;
+        m_Animator.SetTrigger("ToReload");
+
+        Player.isAiming=false;
+        m_Animator.SetFloat("Aim",0);
+    }
+    public override void Aim(){
+        if(Player.isReloading){
+            return ;
+        }
+        if(Player.isAiming){
+            Player.isAiming=false;
             m_Animator.SetFloat("Aim",0);
         }else{
-            Player.Aim.ForceStart();
+            Player.isAiming=true;
             m_Animator.SetFloat("Aim",1);
         }
     }
 
     void Update(){
-        if(isFiring){
+        if(Player.isFiring){
             if(Time.time-m_LastFireTime>=FireDuration){
                 m_LastFireTime=Time.time;
                 m_Animator.SetTrigger("ToFire");
@@ -112,7 +110,7 @@ public class GunBase : EquipmentItem
 
     public void OnFire(){
         // Debug.Log("Fire");
-        isReloading=false;
+        Player.isReloading=false;
         continuouslyUsedTimes=continuouslyUsedTimes+1;
         if(Player.fireAction!=null){
             Player.fireAction(true);
@@ -138,6 +136,6 @@ public class GunBase : EquipmentItem
     }
     public void OnReloadedAnim(){
         Debug.Log("Reloaded");
-        isReloading=false;
+        Player.isReloading=false;
     }
 }

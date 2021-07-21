@@ -62,20 +62,20 @@ public class MouseLook : PlayerComponent
 
     private void LateUpdate(){
         Vector2 prevLookAngles = m_LookAngles;
-        if (Player.ViewLocked.Is(false)){
+        if (!Player.viewLocked){
             LookAround();
         }
         // LastMovement = m_LookAngles - prevLookAngles;
     }
 
     private void LookAround(){
-        float sensitivity = Player.Aim.Active ? m_AimSensitivity : m_Sensitivity;
+        float sensitivity = Player.isAiming ? m_AimSensitivity : m_Sensitivity;
         sensitivity *= SensitivityFactor;
         
 
         Vector2 moveAngles=Vector2.zero;
-        moveAngles.x=Player.LookInput.Get().y * (m_Invert ? 1f : -1f);
-        moveAngles.y=Player.LookInput.Get().x * m_SensitivityYMul;
+        moveAngles.x=Player.lookInput.y * (m_Invert ? 1f : -1f);
+        moveAngles.y=Player.lookInput.x * m_SensitivityYMul;
         m_LookAngles+=moveAngles*sensitivity;
         m_SmoothSpeed+=moveAngles*m_SmoothSensitivity*sensitivity;
 

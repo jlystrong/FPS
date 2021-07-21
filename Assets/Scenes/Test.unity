@@ -445,23 +445,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6854aff3f4449238668ed6394cb90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health:
-    m_CurrentValue: 100
-    m_PreviousValue: 100
-  LookInput:
-    m_CurrentValue: {x: 0, y: 0}
-    m_PreviousValue: {x: 0, y: 0}
-  ViewLocked:
-    m_CurrentValue: 0
-    m_PreviousValue: 0
-  MoveCycle:
-    m_CurrentValue: 0
-    m_PreviousValue: 0
+  lookInput: {x: 0, y: 0}
+  viewLocked: 0
   moveInput: {x: 0, y: 0}
-  Velocity:
-    m_CurrentValue: {x: 0, y: 0}
-    m_PreviousValue: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
+  moveState: 0
+  moveCycle: 0
   m_CurrentItem: {fileID: 0}
+  isAiming: 0
+  isReloading: 0
+  isFiring: 0
   m_Camera: {fileID: 1361136121}
 --- !u!4 &112978422
 Transform:
@@ -513,10 +506,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 112978423}
-  maxSpeedForward: 3
-  maxSpeedSide: 1.5
-  maxSpeedBackward: 1.5
-  lerpAcc: 0.1
+  m_GeneralSettings:
+    maxSpeedForward: 2
+    maxSpeedSide: 1.3
+    maxSpeedBackward: 1
+    lerpAcc: 10
+    aimMul: 0.5
+    walkStepLength: 1
+    runStepLength: 2
 --- !u!1 &123988241
 GameObject:
   m_ObjectHideFlags: 0
@@ -11355,7 +11352,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: -20, y: -20, z: -20, w: -20}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11521,7 +11518,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: -20, y: -20, z: -20, w: -20}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16714,7 +16711,7 @@ MonoBehaviour:
   m_LookRoot: {fileID: 948973690}
   m_PlayerRoot: {fileID: 112978422}
   m_Invert: 0
-  m_Sensitivity: 0.1
+  m_Sensitivity: 0.15
   m_SensitivityYMul: 0.5
   m_AimSensitivity: 0.05
   m_SmoothSensitivity: 0.15
@@ -38646,7 +38643,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: -20, y: -20, z: -20, w: -20}
+  m_RaycastPadding: {x: 20, y: 20, z: 20, w: 20}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -39269,9 +39266,6 @@ MonoBehaviour:
     AimMultiplier: 0.01
     LookPositionSway: {x: -0.01, y: -0.005, z: 0}
     LookRotationSway: {x: 0.2, y: 0.35, z: 0}
-    FallSway: {x: 0, y: 0, z: 0}
-    StrafePositionSway: {x: 0, y: 0, z: 0}
-    StrafeRotationSway: {x: 0, y: 0, z: 0}
   Input:
     LookInputMultiplier: 1
     MaxLookInput: 200
@@ -39331,13 +39325,13 @@ MonoBehaviour:
       RotationOffset: {x: 0, y: 0, z: 0}
     Offset:
       Enabled: 1
-      PositionOffset: {x: 0, y: 0, z: 0}
+      PositionOffset: {x: 0, y: -0.5, z: 0}
       RotationOffset: {x: 0, y: 0, z: 0}
     Bob:
       Enabled: 1
       BobSpeedMultiplier: 1
-      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
-      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+      PositionAmplitude: {x: 3, y: 5, z: 0}
+      RotationAmplitude: {x: 3, y: 5, z: 0}
     Noise:
       MaxJitter: 0.1
       NoiseSpeed: 1
@@ -39371,13 +39365,13 @@ MonoBehaviour:
       RotationOffset: {x: 0, y: 0, z: 0}
     Offset:
       Enabled: 1
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0}
+      PositionOffset: {x: 0, y: -3, z: 0}
+      RotationOffset: {x: 50, y: -30, z: 0}
     Bob:
       Enabled: 1
       BobSpeedMultiplier: 1
-      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
-      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+      PositionAmplitude: {x: 3, y: -5, z: 0}
+      RotationAmplitude: {x: 5, y: 5, z: 0}
     Noise:
       MaxJitter: 0.1
       NoiseSpeed: 1
@@ -39411,18 +39405,18 @@ MonoBehaviour:
       RotationOffset: {x: 0, y: 0, z: 0}
     Offset:
       Enabled: 1
-      PositionOffset: {x: -19.56, y: 11.1, z: -13.22}
+      PositionOffset: {x: -18.4, y: 10.4, z: -13.22}
       RotationOffset: {x: -31.1, y: -10.5, z: -16.72}
     Bob:
-      Enabled: 0
+      Enabled: 1
       BobSpeedMultiplier: 1
-      PositionAmplitude: {x: 0.35, y: 0.5, z: 0}
-      RotationAmplitude: {x: 0.35, y: 0.5, z: 0}
+      PositionAmplitude: {x: 1, y: 1, z: 0}
+      RotationAmplitude: {x: 1, y: 1, z: 0}
     Noise:
       MaxJitter: 0.1
       NoiseSpeed: 0.4
-      PosNoiseAmplitude: {x: 0.01, y: 0.02, z: 0.0075}
-      RotNoiseAmplitude: {x: 0.04, y: 0.02, z: 0.05}
+      PosNoiseAmplitude: {x: 0.05, y: 0.02, z: 0.0075}
+      RotNoiseAmplitude: {x: 0.05, y: 0.02, z: 0.05}
     EnterForce:
       Force: {x: 0.3, y: 0.22, z: -0.4}
       Distribution: 5
@@ -39435,6 +39429,22 @@ MonoBehaviour:
     PosExitForce:
       Force: {x: -0.0006, y: -0.0005, z: 0}
       Distribution: 3
+  WalkStepForce:
+    Enabled: 1
+    PositionForce:
+      Force: {x: 0, y: -5, z: 0}
+      Distribution: 20
+    RotationForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 5
+  RunStepForce:
+    Enabled: 1
+    PositionForce:
+      Force: {x: 0, y: -5, z: 0}
+      Distribution: 20
+    RotationForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 5
 --- !u!114 &1737961984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39457,9 +39467,6 @@ MonoBehaviour:
     LightEffects:
     - {fileID: 470011783}
     - {fileID: 1181916722}
-  m_AimSettings:
-    position: {x: -0.008, y: 0.003, z: -0.011}
-    rotation: {x: 0, y: 0, z: 0}
 --- !u!1 &1773115021
 GameObject:
   m_ObjectHideFlags: 0

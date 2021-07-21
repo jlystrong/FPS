@@ -71,18 +71,18 @@ public class WeaponRecoil : EquipmentComponent
     }
 
     private void AddImpulseRecoil(bool continuously){
-        if ((m_AttacheEquipment.ContinuouslyUsedTimes == 1 || !m_ChangedSpring) && !Player.Aim.Active){
+        if ((m_AttacheEquipment.ContinuouslyUsedTimes == 1 || !m_ChangedSpring) && !Player.isAiming){
             m_EHandler.PhysicsHandler.PositionSpring.Adjust(m_WeaponModelRecoil.PositionSpring);
             m_EHandler.PhysicsHandler.RotationSpring.Adjust(m_WeaponModelRecoil.RotationSpring);
             m_ChangedSpring = true;
         }
         float recoilMultiplier = m_WeaponModelRecoil.RecoilOverTime.Evaluate(m_AttacheEquipment.ContinuouslyUsedTimes / (float)m_AttacheEquipment.TryGetMagazineSize());
-        if (Player.Aim.Active)
+        if (Player.isAiming)
             m_WeaponModelRecoil.AimShootForce.PlayRecoilForce(recoilMultiplier, m_EHandler.PhysicsHandler.RotationSpring, m_EHandler.PhysicsHandler.PositionSpring);
         else
             m_WeaponModelRecoil.ShootForce.PlayRecoilForce(recoilMultiplier, m_EHandler.PhysicsHandler.RotationSpring, m_EHandler.PhysicsHandler.PositionSpring);
 
-        Player.Camera.ApplyRecoil(m_CameraRecoil.ShootForce, Player.Aim.Active ? m_CameraRecoil.AimMultiplier : 1f);
+        Player.Camera.ApplyRecoil(m_CameraRecoil.ShootForce, Player.isAiming ? m_CameraRecoil.AimMultiplier : 1f);
         if (m_CameraRecoil.ShootShake.PositionAmplitude != Vector3.zero && m_CameraRecoil.ShootShake.RotationAmplitude != Vector3.zero){
             Player.Camera.DoShake(m_CameraRecoil.ShootShake, 1f);
         }
@@ -97,7 +97,7 @@ public class WeaponRecoil : EquipmentComponent
         if(m_LastChangeFireModeTime+m_WeaponModelRecoil.ChangeFireModeInterval<=Time.time && m_AttacheEquipment.ContinuouslyUsedTimes>=3){
             m_LastChangeFireModeTime=Time.time;
             float forceMul=1f;
-            if(Player.Aim.Active){
+            if(Player.isAiming){
                 forceMul=0.25f;
             }
             m_WeaponModelRecoil.ChangeFireModeForce.PlayRecoilForce(forceMul, m_EHandler.PhysicsHandler.RotationSpring, m_EHandler.PhysicsHandler.PositionSpring);

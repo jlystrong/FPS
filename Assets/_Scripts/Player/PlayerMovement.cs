@@ -25,6 +25,8 @@ public class PlayerMovement : PlayerComponent
 
     private static float SPEED_WALK=0.1f;
     private static float SPEED_RUN=1.8f;
+    private static float SPEED_FIRE_MAX=1.6f;
+    private static float SPEED_AIM_MAX=1.2f;
 
     private float m_DistMovedSinceLastCycleEnded;
     private float m_CurrentStepLength;
@@ -61,6 +63,17 @@ public class PlayerMovement : PlayerComponent
             desireVelocity.y=m_GeneralSettings.maxSpeedForward*Player.moveInput.y;
         }
         desireVelocity.x=m_GeneralSettings.maxSpeedSide*Player.moveInput.x;
+        if(Player.isAiming){
+            float desireSpeed=desireVelocity.magnitude;
+            if(desireSpeed>SPEED_AIM_MAX){
+                desireVelocity*=SPEED_AIM_MAX/desireSpeed;
+            }
+        }else if(Player.isFiring){
+            float desireSpeed=desireVelocity.magnitude;
+            if(desireSpeed>SPEED_FIRE_MAX){
+                desireVelocity*=SPEED_FIRE_MAX/desireSpeed;
+            }
+        }
         Player.velocity=Vector2.Lerp(Player.velocity,desireVelocity,Mathf.Min(m_GeneralSettings.lerpAcc*Time.deltaTime,1));
 
         Transform agentTrans=agent.transform;

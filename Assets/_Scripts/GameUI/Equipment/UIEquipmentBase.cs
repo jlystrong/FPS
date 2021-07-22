@@ -25,6 +25,10 @@ public class UIEquipmentBase : PlayerComponentFinder
         SimpleButton fireButton=btnFireObj.GetComponent<SimpleButton>();
         fireButton.onDown=OnFireDown;
         fireButton.onUp=OnFireUp;
+        SimpleDrag fireDragger=btnFireObj.GetComponent<SimpleDrag>();
+        fireDragger.onDrag=OnDrag;
+        fireDragger.onBeginDrag=OnBeginDrag;
+        fireDragger.onEndDrag=OnEndDrag;
         
         SimpleButton reloadBtn=btnReloadObj.GetComponent<SimpleButton>();
         reloadBtn.onClick=OnReloadClick;

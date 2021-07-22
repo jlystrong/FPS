@@ -364,7 +364,6 @@ Transform:
   m_Children:
   - {fileID: 156593607}
   - {fileID: 1428303792}
-  - {fileID: 1078404512}
   - {fileID: 1035025521}
   m_Father: {fileID: 416704653}
   m_RootOrder: 1
@@ -464,7 +463,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112978420}
   m_LocalRotation: {x: -0, y: -0.72722733, z: -0, w: 0.6863967}
-  m_LocalPosition: {x: 10.534, y: 0, z: 16.932}
+  m_LocalPosition: {x: 10.66, y: 0, z: 16.932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 948973690}
@@ -602,7 +601,7 @@ GameObject:
   - component: {fileID: 156593607}
   - component: {fileID: 156593606}
   m_Layer: 0
-  m_Name: Reflection Probe
+  m_Name: Reflection Probe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16804,7 +16803,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 55855806}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!220 &1035025522
 LightProbeGroup:
@@ -21799,70 +21798,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &1078404511
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1078404512}
-  - component: {fileID: 1078404513}
-  m_Layer: 0
-  m_Name: Reflection Probe (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1078404512
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078404511}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.29, y: 2, z: 18.09}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 55855806}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!215 &1078404513
-ReflectionProbe:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078404511}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Type: 0
-  m_Mode: 0
-  m_RefreshMode: 0
-  m_TimeSlicingMode: 0
-  m_Resolution: 128
-  m_UpdateFrequency: 0
-  m_BoxSize: {x: 12, y: 10, z: 12}
-  m_BoxOffset: {x: 0, y: 0, z: 0}
-  m_NearClip: 0.1
-  m_FarClip: 1000
-  m_ShadowDistance: 100
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 129
-  m_IntensityMultiplier: 1
-  m_BlendDistance: 1
-  m_HDR: 1
-  m_BoxProjection: 0
-  m_RenderDynamicObjects: 0
-  m_UseOcclusionCulling: 1
-  m_Importance: 1
-  m_CustomBakedTexture: {fileID: 0}
 --- !u!1 &1130181416
 GameObject:
   m_ObjectHideFlags: 0
@@ -38278,7 +38213,7 @@ GameObject:
   - component: {fileID: 1428303792}
   - component: {fileID: 1428303793}
   m_Layer: 0
-  m_Name: Reflection Probe (1)
+  m_Name: Reflection Probe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38544,6 +38479,7 @@ GameObject:
   - component: {fileID: 1565747005}
   - component: {fileID: 1565747004}
   - component: {fileID: 1565747003}
+  - component: {fileID: 1565747007}
   m_Layer: 5
   m_Name: BtnFire
   m_TagString: Untagged
@@ -38666,6 +38602,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565747001}
   m_CullTransparentMesh: 0
+--- !u!114 &1565747007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565747001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b6a888570014f2b91622c21397ee22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1582288211
 GameObject:
   m_ObjectHideFlags: 0
@@ -39365,7 +39314,7 @@ MonoBehaviour:
       RotationOffset: {x: 0, y: 0, z: 0}
     Offset:
       Enabled: 1
-      PositionOffset: {x: 0, y: -3, z: 0}
+      PositionOffset: {x: 0, y: -2, z: 0}
       RotationOffset: {x: 50, y: -30, z: 0}
     Bob:
       Enabled: 1
@@ -39733,7 +39682,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
   randomSeed: 0
@@ -39850,7 +39799,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.41509432, g: 0.41019934, b: 0.40530434, a: 0.105882354}
+      maxColor: {r: 0.41509432, g: 0.41019934, b: 0.40530434, a: 0.078431375}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -40500,7 +40449,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.35
+          value: 0.15
           inSlope: 3.1259365
           outSlope: 3.1259365
           tangentMode: 0
@@ -40508,7 +40457,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.3278962
         - serializedVersion: 3
-          time: 0.5609741
+          time: 0.8
           value: 0
           inSlope: -0.38874838
           outSlope: -0.38874838

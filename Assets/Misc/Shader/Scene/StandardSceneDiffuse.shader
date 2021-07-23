@@ -23,7 +23,6 @@ Shader "FPS/StandardSceneDiffuse"
 
             HLSLPROGRAM
             #pragma shader_feature_local _NORMALMAP
-
             #pragma multi_compile _ LIGHTMAP_ON
 
             #pragma vertex LitPassVertex
@@ -145,8 +144,6 @@ Shader "FPS/StandardSceneDiffuse"
         }
     }
 
-
-
     FallBack "Hidden/Universal Render Pipeline/FallbackError"
-    CustomEditor "UnityEditor.StandardWeaponShader"
+    CustomEditor "UnityEditor.StandardSceneDiffuseShader"
 }

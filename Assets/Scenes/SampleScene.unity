@@ -5112,22 +5112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6854aff3f4449238668ed6394cb90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health:
-    m_CurrentValue: 100
-    m_PreviousValue: 100
-  LookInput:
-    m_CurrentValue: {x: 0, y: 0}
-    m_PreviousValue: {x: 0, y: 0}
-  ViewLocked:
-    m_CurrentValue: 0
-    m_PreviousValue: 0
-  MoveCycle:
-    m_CurrentValue: 0
-    m_PreviousValue: 0
-  Velocity:
-    m_CurrentValue: {x: 0, y: 0, z: 0}
-    m_PreviousValue: {x: 0, y: 0, z: 0}
+  lookInput: {x: 0, y: 0}
+  viewLocked: 0
+  moveInput: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
+  moveState: 0
+  moveCycle: 0
   m_CurrentItem: {fileID: 0}
+  isAiming: 0
+  isReloading: 0
+  isFiring: 0
   m_Camera: {fileID: 313080240}
 --- !u!1 &255806757
 GameObject:
@@ -5367,7 +5361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &410953005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10771,9 +10765,6 @@ MonoBehaviour:
     AimMultiplier: 0.01
     LookPositionSway: {x: -0.01, y: -0.005, z: 0}
     LookRotationSway: {x: 0.2, y: 0.35, z: 0}
-    FallSway: {x: 0, y: 0, z: 0}
-    StrafePositionSway: {x: 0, y: 0, z: 0}
-    StrafeRotationSway: {x: 0, y: 0, z: 0}
   Input:
     LookInputMultiplier: 1
     MaxLookInput: 200
@@ -10937,6 +10928,22 @@ MonoBehaviour:
     PosExitForce:
       Force: {x: -0.0006, y: -0.0005, z: 0}
       Distribution: 3
+  WalkStepForce:
+    Enabled: 1
+    PositionForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    RotationForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+  RunStepForce:
+    Enabled: 1
+    PositionForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
+    RotationForce:
+      Force: {x: 0, y: 0, z: 0}
+      Distribution: 0
 --- !u!114 &503024282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10956,10 +10963,7 @@ MonoBehaviour:
   m_EquipmentSettings:
     MuzzleEffect: {fileID: 1064706252}
     MuzzleEndEffect: {fileID: 1621250210}
-    LightEffect: {fileID: 171904628}
-  m_AimSettings:
-    position: {x: -0.008, y: 0.003, z: -0.011}
-    rotation: {x: 0, y: 0, z: 0}
+    LightEffects: []
 --- !u!114 &503024283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16068,6 +16072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c8d8d4e09c54a24879a1905cb8496d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moverObj: {fileID: 0}
   touchpadObj: {fileID: 914838605}
   btnFireObj: {fileID: 1190945595}
   btnReloadObj: {fileID: 1901016843}

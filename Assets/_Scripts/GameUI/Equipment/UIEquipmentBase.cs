@@ -43,6 +43,19 @@ public class UIEquipmentBase : PlayerComponentFinder
             Player.lookInput=Vector2.zero;
         }
         isDragging=false;
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            OnFireDown(null);
+        }
+        if(Input.GetKeyUp(KeyCode.Space)){
+            OnFireUp(null);
+        }
+        if(Input.GetKeyUp(KeyCode.R)){
+            OnReloadClick(null);
+        }
+        if(Input.GetMouseButtonDown(1)){
+            OnAimClick(null);
+        }
     }
 
     private void OnMove(Vector2 moveOffset){

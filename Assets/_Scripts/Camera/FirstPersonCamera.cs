@@ -119,4 +119,6 @@ public class FirstPersonCamera : MonoBehaviour
                 break;
         }
     }
+
+    
 }

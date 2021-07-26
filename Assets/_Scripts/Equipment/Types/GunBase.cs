@@ -17,6 +17,7 @@ public class GunBase : EquipmentItem
 
     [Serializable]
     public struct EquipmentSettings{
+        public BulletBase bullet;
         public Transform MuzzleEffect;
         public Transform MuzzleEndEffect;
         public LightEffect[] LightEffects;
@@ -122,6 +123,8 @@ public class GunBase : EquipmentItem
         Transform muzzleEffectTrans=Instantiate(m_EquipmentSettings.MuzzleEffect);
         muzzleEffectTrans.SetParent(muzzleEffectRootTrans,false);
         muzzleEffectTrans.gameObject.SetActive(true);
+
+        m_EquipmentSettings.bullet.Shoot();
     }
     public void OnFireEnd(){
         if(continuouslyUsedTimes>=3){

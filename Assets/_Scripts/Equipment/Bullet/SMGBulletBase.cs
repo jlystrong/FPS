@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class SMGBulletBase : BulletBase
 {
     public float speed=1000.0f;
@@ -21,11 +20,11 @@ public class SMGBulletBase : BulletBase
             Transform camTrans=Camera.main.transform;
             Ray ray=new Ray(camTrans.position,camTrans.forward);
             RaycastHit hitInfo;
-            if(Physics.Raycast(ray,out hitInfo,speed*Time.deltaTime,layerMask)){
-                transform.forward=(hitInfo.point-bulletTrans.position).normalized;
+            if(Physics.Raycast(ray,out hitInfo,1000000,layerMask)){
+                bulletTrans.forward=(hitInfo.point-bulletTrans.position).normalized;
             }else{
                 Vector3 targetPos=camTrans.position+camTrans.forward*1000000;
-                transform.forward=(targetPos-bulletTrans.position).normalized;
+                bulletTrans.forward=(targetPos-bulletTrans.position).normalized;
             }
         }
         bulletTrans.gameObject.SetActive(true);

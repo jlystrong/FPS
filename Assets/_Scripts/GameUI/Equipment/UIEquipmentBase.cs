@@ -44,6 +44,7 @@ public class UIEquipmentBase : PlayerComponentFinder
         }
         isDragging=false;
 
+        #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Space)){
             OnFireDown(null);
         }
@@ -56,6 +57,7 @@ public class UIEquipmentBase : PlayerComponentFinder
         if(Input.GetMouseButtonDown(1)){
             OnAimClick(null);
         }
+        #endif
     }
 
     private void OnMove(Vector2 moveOffset){

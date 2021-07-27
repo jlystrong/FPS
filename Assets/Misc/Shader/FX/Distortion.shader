@@ -51,7 +51,7 @@ Shader "FPS/FX/DistortionBump"
 
             v2f vert (appdata v){
                 v2f o=(v2f)0;
-				o.vertex = TransformWorldToHClip(v.vertex);
+				o.vertex = TransformObjectToHClip(v.vertex);
 				o.color = v.color;
 				o.texcoord = TRANSFORM_TEX(v.texcoord,_NoiseTex);
                 o.texcoord2 = TRANSFORM_TEX(v.texcoord,_Mask);

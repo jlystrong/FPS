@@ -43,7 +43,7 @@ Shader "FPS/FX/Additive Alpha8"
 
             v2f vert (appdata v){
                 v2f o;
-				o.vertex = TransformWorldToHClip(v.vertex);
+				o.vertex = TransformObjectToHClip(v.vertex);
 				o.color = v.color;
 				o.texcoord = TRANSFORM_TEX(v.texcoord,_MainTex);
 				return o;

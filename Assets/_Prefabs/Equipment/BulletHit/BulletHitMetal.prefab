@@ -260,7 +260,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -295,7 +295,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
+      scalar: 14
       minScalar: 4
       maxCurve:
         serializedVersion: 2
@@ -331,7 +331,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 0.254717, g: 0.18712606, b: 0.09011214, a: 1}
-      maxColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9827,7 +9827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419ea61851ce74c7d99e1bb5840746a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.25
+  duration: 0.3
   animationCurve:
     serializedVersion: 2
     m_Curve:

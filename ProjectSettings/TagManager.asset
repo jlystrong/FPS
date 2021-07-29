@@ -8,6 +8,22 @@ TagManager:
   - METAL
   - WOOD
   - GLASS
+  - SCENE4
+  - SCENE5
+  - SCENE6
+  - SCENE7
+  - SCENE8
+  - SCENE9
+  - Z_BODY
+  - Z_ARML
+  - Z_ARMR
+  - Z_HEAD
+  - Z_LEGL
+  - Z_LEGR
+  - Z_6
+  - Z_7
+  - Z_8
+  - Z_9
   layers:
   - Default
   - TransparentFX

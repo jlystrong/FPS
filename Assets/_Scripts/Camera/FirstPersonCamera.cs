@@ -8,6 +8,11 @@ public class FirstPersonCamera : MonoBehaviour
     [SerializeField]
 	private Camera m_Camera = null;
 
+    [SerializeField]
+    private float baseFov = 50.0f;
+    private float targetFov = 50.0f;
+    private float fovLerpSpeed = 10.0f;
+
     [Serializable]
 	public struct SpringSettings{
 		public static SpringSettings Default { get { return new SpringSettings() { Position = Spring.Data.Default, Rotation = Spring.Data.Default }; } }
@@ -102,6 +107,8 @@ public class FirstPersonCamera : MonoBehaviour
 
         m_PositionRecoilSpring.Update();
         m_RotationRecoilSpring.Update();
+
+        UpdateFov();
     }
 
     private void UpdateShakes(){
@@ -120,5 +127,17 @@ public class FirstPersonCamera : MonoBehaviour
         }
     }
 
-    
+    private void UpdateFov(){
+        if(m_Camera!=null){
+            if(m_Camera.fieldOfView!=targetFov){
+                m_Camera.fieldOfView=Mathf.MoveTowards(m_Camera.fieldOfView,targetFov,fovLerpSpeed*Time.deltaTime);
+            }
+        }
+    }
+    public void SetViewScale(float viewScale,float lerpSpeed=50.0f){
+        fovLerpSpeed=lerpSpeed;
+        float origL=(float)Math.Sin(baseFov*Mathf.Deg2Rad/2);
+        float targetL=origL/viewScale;
+        targetFov=Mathf.Asin(targetL)*Mathf.Rad2Deg*2;
+    }
 }

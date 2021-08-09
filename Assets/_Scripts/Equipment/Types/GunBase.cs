@@ -14,6 +14,9 @@ public class GunBase : EquipmentItem
     public FireMode Mode=FireMode.FullAtuo;
     public float FireDuration=0.1f;
     public float ReloadDuration=2.5f;
+    public float AimViewScale=1.1f;
+    public float AimSpeed=50.0f;
+    public float UnaimSpeed=100.0f;
 
     [Serializable]
     public struct EquipmentSettings{
@@ -83,9 +86,11 @@ public class GunBase : EquipmentItem
             return ;
         }
         if(Player.isAiming){
+            Player.Camera.SetViewScale(1,UnaimSpeed);
             Player.isAiming=false;
             m_Animator.SetFloat("Aim",0);
         }else{
+            Player.Camera.SetViewScale(AimViewScale,AimSpeed);
             Player.isAiming=true;
             m_Animator.SetFloat("Aim",1);
         }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b32424ae7b4144afb1c4952930436e1, type: 3}
+  m_Name: AR2_Shoot_Trail
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: b3f3ac7611d0a45779c5dafb35283793, type: 3}
+  - {fileID: 8300000, guid: 7410370103ffd4e7e99475f145ef786a, type: 3}
+  baseVolume: 1
+  randomVolume: 0.1
+  basePitch: 3
+  randomPitch: 0.5
+  baseDelay: 0
+  randomDelay: 0
+  base3D: 0
+  random3D: 0

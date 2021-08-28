@@ -2,7 +2,7 @@ Shader "FPS/StandardSceneDiffuse"
 {
     Properties
     {
-        [MainColor] _MainColor("Color", Color) = (1,1,1,1)
+        [HDR] _MainColor("Color", Color) = (1,1,1,1)
         [MainTexture] _MainTex("Albedo", 2D) = "white" {}
 
         _BumpMap("Normal Map", 2D) = "bump" {}
@@ -56,6 +56,8 @@ Shader "FPS/StandardSceneDiffuse"
                 float3 positionWS:TEXCOORD3;
                 #ifdef LIGHTMAP_ON
                 float2 lightmapUV:TEXCOORD5;
+                #else
+                float vertexSH:TEXCOORD5;
                 #endif
             };
 
@@ -75,6 +77,8 @@ Shader "FPS/StandardSceneDiffuse"
                 #endif
                 #ifdef LIGHTMAP_ON
                 output.lightmapUV=input.lightmapUV.xy * unity_LightmapST.xy + unity_LightmapST.zw;
+                #else
+                output.vertexSH = SampleSHVertex(output.normalWS);
                 #endif
 
                 return output;
@@ -102,7 +106,7 @@ Shader "FPS/StandardSceneDiffuse"
                 half3 bakedGI = SampleLightmap(input.lightmapUV, normalWS);
                 half3 color=bakedGI*albedo;
                 #else
-                half3 color=albedo;
+                half3 color=SampleSHPixel(input.vertexSH, normalWS) * albedo;
                 #endif
 
                 uint pixelLightCount = GetAdditionalLightsCount();

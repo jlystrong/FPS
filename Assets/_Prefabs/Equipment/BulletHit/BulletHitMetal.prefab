@@ -109,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948055447841286846}
   - component: {fileID: -7998296832475783548}
+  - component: {fileID: -1030513224720204169}
   m_Layer: 11
   m_Name: BulletHitMetal
   m_TagString: Untagged
@@ -145,6 +146,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 10
+--- !u!114 &-1030513224720204169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948055447841286845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c235c5f6e3304f358ea0421efb595b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  packFlat: {fileID: 11400000, guid: 02e22fe1f55624636959068bdbab70e0, type: 2}
 --- !u!1 &4645386454983527965
 GameObject:
   m_ObjectHideFlags: 0

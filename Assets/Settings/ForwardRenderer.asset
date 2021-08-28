@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    renderPassEvent: 600
+    renderPassEvent: 500
     HeightFog:
-      enabled: 0
+      enabled: 1
       fogSkybox: 0
       color: {r: 1, g: 1, b: 1, a: 1}
-      baseHeight: 0
+      baseHeight: -1
       baseDensity: 0.01
-      densityFalloff: 0.5
+      densityFalloff: 1
     DistanceFog:
-      enabled: 1
+      enabled: 0
       fogSkybox: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       distanceType: 1

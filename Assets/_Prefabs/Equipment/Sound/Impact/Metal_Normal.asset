@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b32424ae7b4144afb1c4952930436e1, type: 3}
+  m_Name: Metal_Normal
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 3f09d485de55f4d3c924a666d61a2bac, type: 3}
+  - {fileID: 8300000, guid: 8c8b780fe4d0d4b6a8da5d983e179cf5, type: 3}
+  - {fileID: 8300000, guid: f8c6fac19db4f40e79f127fe53d045af, type: 3}
+  baseVolume: 0.8
+  randomVolume: 0.2
+  basePitch: 1.2
+  randomPitch: 0.2
+  baseDelay: 0
+  randomDelay: 0
+  base3D: 0.65
+  random3D: 0.1

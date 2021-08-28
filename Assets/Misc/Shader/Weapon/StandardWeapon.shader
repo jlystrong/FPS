@@ -7,9 +7,10 @@ Shader "FPS/StandardWeapon"
 
         _BumpMap("Normal Map", 2D) = "bump" {}
         _BumpScale("Bump Scale", Range(0.0, 5.0)) = 1.0
-        _MaskMap("Mask Map", 2D) = "white" {}
+        _MaskMap("Mask Map (r:metallic g:ao a:smoothness)", 2D) = "white" {}
         _Metallic("Metallic", Range(0.0, 3.0)) = 1.0
         _Smoothness("Smoothness", Range(0.0, 3.0)) = 1.0
+        _OcclusionInv("Occlusion Inv", Range(0.0, 1.0)) = 1.0
     }
     SubShader
     {
@@ -43,6 +44,7 @@ Shader "FPS/StandardWeapon"
             half _BumpScale;
             half _Metallic;
             half _Smoothness;
+            half _OcclusionInv;
             CBUFFER_END
 
             struct Attributes{
@@ -87,7 +89,7 @@ Shader "FPS/StandardWeapon"
                 half4 maskAlpha=SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, input.uv);
 
                 half3 albedo=albedoAlpha.rgb * _MainColor.rgb;
-                half occlusion=1;
+                half occlusion=maskAlpha.g+_OcclusionInv;
                 half metallic=maskAlpha.r*_Metallic;
                 half smoothness=maskAlpha.a*_Smoothness;
 

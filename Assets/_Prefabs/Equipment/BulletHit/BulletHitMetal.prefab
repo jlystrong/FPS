@@ -274,7 +274,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
+      scalar: 0.25
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -309,7 +309,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 14
+      scalar: 17
       minScalar: 4
       maxCurve:
         serializedVersion: 2
@@ -729,7 +729,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.7
+      scalar: 2
       minScalar: 0.3
       maxCurve:
         serializedVersion: 2
@@ -1098,7 +1098,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 12
+        scalar: 25
         minScalar: 5
         maxCurve:
           serializedVersion: 2
@@ -1494,8 +1494,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.84313726, b: 0.75686276, a: 1}
-        key1: {r: 0.6792453, g: 0.36659896, b: 0.20185119, a: 1}
-        key2: {r: 1, g: 0.5568628, b: 0, a: 0}
+        key1: {r: 0.46226418, g: 0.286395, b: 0.19406372, a: 1}
+        key2: {r: 0.6792453, g: 0.36659896, b: 0.20185119, a: 0}
         key3: {r: 0.101960786, g: 0.023529412, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1503,7 +1503,7 @@ ParticleSystem:
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
         ctime1: 37586
-        ctime2: 65535
+        ctime2: 38550
         ctime3: 65535
         ctime4: 0
         ctime5: 0

@@ -72,7 +72,8 @@ public class EquipmentHandler : PlayerComponent
 
     void Awake(){
         m_ItemPhysicsHandler = GetComponent<EquipmentPhysicsHandler>();
-        Equip(transform.Find("Offset/M1A"));
+        // Equip(transform.Find("Offset/M1A"));
+        Equip(transform.Find("Offset/M1911"));
     }
     public void Equip(Transform itemTrans){
         if (m_CurrentItem != null){

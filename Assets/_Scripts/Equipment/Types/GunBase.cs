@@ -48,10 +48,10 @@ public class GunBase : EquipmentItem
         AnimatorOverrideController ac = m_Animator.runtimeAnimatorController as AnimatorOverrideController;
         AnimationClipPair[] clipPairs =  ac.clips;
         for(int i=0;i<clipPairs.Length;i++){
-            if(clipPairs[i].originalClip.name=="Fire"){
+            if(clipPairs[i].originalClip.name=="Fire" || clipPairs[i].overrideClip.name.EndsWith("Fire")){
                 float origLength=clipPairs[i].originalClip.length;
                 m_Animator.SetFloat("FireSpeed",Mathf.Pow(origLength/FireDuration,0.3f));
-            }else if(clipPairs[i].originalClip.name=="Reload"){
+            }else if(clipPairs[i].originalClip.name=="Reload" || clipPairs[i].overrideClip.name.StartsWith("Reload")){
                 float origLength=clipPairs[i].originalClip.length;
                 m_Animator.SetFloat("ReloadSpeed",origLength/ReloadDuration);
             }
@@ -110,6 +110,7 @@ public class GunBase : EquipmentItem
         if(Player.isFiring){
             if(Time.time-m_LastFireTime>=FireDuration){
                 m_LastFireTime=Time.time;
+                m_Animator.SetBool("Firing",true);
                 m_Animator.SetTrigger("ToFire");
                 OnFire();
             }
@@ -118,7 +119,7 @@ public class GunBase : EquipmentItem
 
     public void OnAnimEvent(string param){
         switch(param){
-            case "Fire":OnFireAnim();break;
+            case "Fired":OnFireAnim();break;
             case "Reloaded":OnReloadedAnim();break;
             default:break;
         }
@@ -154,7 +155,7 @@ public class GunBase : EquipmentItem
         }
     }
     public void OnFireAnim(){
-        // Debug.Log("FireAnim");
+        m_Animator.SetBool("Firing",false);
     }
     public void OnReloadedAnim(){
         Debug.Log("Reloaded");

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public System.Action moveCycleEnded = null;
 
     public EquipmentItem m_CurrentItem;
+    public int equipmentIndex=0;
 
     public bool isAiming=false;
     public bool isReloading=false;

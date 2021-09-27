@@ -9,7 +9,7 @@ public class UIEquipmentBase : PlayerComponentFinder
     public GameObject btnFireObj;
     public GameObject btnReloadObj;
     public GameObject btnAimObj;
-    
+    public GameObject btnChangeObj;
 
     private bool isDragging=false;
 
@@ -35,6 +35,9 @@ public class UIEquipmentBase : PlayerComponentFinder
 
         SimpleButton aimBtn=btnAimObj.GetComponent<SimpleButton>();
         aimBtn.onClick=OnAimClick;
+
+        SimpleButton changeBtn=btnChangeObj.GetComponent<SimpleButton>();
+        changeBtn.onClick=OnChangeClick;
     }
 
     
@@ -53,6 +56,9 @@ public class UIEquipmentBase : PlayerComponentFinder
         }
         if(Input.GetKeyUp(KeyCode.R)){
             OnReloadClick(null);
+        }
+        if(Input.GetKeyUp(KeyCode.T)){
+            OnChangeClick(null);
         }
         if(Input.GetMouseButtonDown(1)){
             OnAimClick(null);
@@ -88,5 +94,8 @@ public class UIEquipmentBase : PlayerComponentFinder
     }
     private void OnAimClick(Transform btnTrans){
         Player.m_CurrentItem.Aim();
+    }
+    private void OnChangeClick(Transform btnTrans){
+        Player.equipmentIndex++;
     }
 }

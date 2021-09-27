@@ -17,7 +17,7 @@
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            var src = renderer.cameraColorTarget;
+            RenderTargetIdentifier src = renderer.cameraColorTarget;
             m_Pass.Setup(src);
             renderer.EnqueuePass(m_Pass);
         }

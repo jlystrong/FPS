@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering;
 
 namespace UnityEngine.Rendering.Universal
 {
@@ -13,6 +14,10 @@ namespace UnityEngine.Rendering.Universal
         public DistanceFogSettings distanceFog = DistanceFogSettings.defaultSettings;
         public HeightFogSettings heightFog = HeightFogSettings.defaultSettings;
 
+        RenderTextureDescriptor m_Descriptor;
+        readonly GraphicsFormat m_DefaultHDRFormat;
+        bool m_UseRGBM;
+
         public void Setup(RenderTargetIdentifier source)
         {
             m_Source = source;
@@ -21,12 +26,34 @@ namespace UnityEngine.Rendering.Universal
         public StylisticFogCustomRenderPass(string profilerTag)
         {
             m_ProfilerTag = profilerTag;
+
+            // Texture format pre-lookup
+            if (SystemInfo.IsFormatSupported(GraphicsFormat.B10G11R11_UFloatPack32, FormatUsage.Linear | FormatUsage.Render))
+            {
+                m_DefaultHDRFormat = GraphicsFormat.B10G11R11_UFloatPack32;
+                m_UseRGBM = false;
+            }
+            else
+            {
+                m_DefaultHDRFormat = QualitySettings.activeColorSpace == ColorSpace.Linear
+                    ? GraphicsFormat.R8G8B8A8_SRGB
+                    : GraphicsFormat.R8G8B8A8_UNorm;
+                m_UseRGBM = true;
+            }
         }
 
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
             var width = cameraTextureDescriptor.width;
             var height = cameraTextureDescriptor.height;
+            m_Descriptor=cameraTextureDescriptor;
+            m_Descriptor.depthBufferBits = 0;
+            m_Descriptor.msaaSamples = 1;
+            m_Descriptor.width = width;
+            m_Descriptor.height = height;
+            m_Descriptor.graphicsFormat = m_DefaultHDRFormat;
+            m_Descriptor.useMipMap = false;
+            m_Descriptor.autoGenerateMips = false;
 
             m_TmpRT1 = SetupRenderTargetIdentifier(cmd, 0, width, height);
         }
@@ -34,7 +61,8 @@ namespace UnityEngine.Rendering.Universal
         private RenderTargetIdentifier SetupRenderTargetIdentifier(CommandBuffer cmd, int id, int width, int height)
         {
             int tmpId = Shader.PropertyToID($"StylisticFog_{id}_RT");
-            cmd.GetTemporaryRT(tmpId, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
+            cmd.GetTemporaryRT(tmpId,m_Descriptor,FilterMode.Bilinear);
+            // cmd.GetTemporaryRT(tmpId, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
 
             var rt = new RenderTargetIdentifier(tmpId);
             ConfigureTarget(rt);

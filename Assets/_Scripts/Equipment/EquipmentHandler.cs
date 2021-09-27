@@ -70,15 +70,20 @@ public class EquipmentHandler : PlayerComponent
     //     return usedSuccessfully;
     // }
 
+    private string[] equipmentNames={"M1911","M1A"};
+    private int lastEquipmentIndex=0;
+
     void Awake(){
         m_ItemPhysicsHandler = GetComponent<EquipmentPhysicsHandler>();
         // Equip(transform.Find("Offset/M1A"));
-        Equip(transform.Find("Offset/M1911"));
+        Player.equipmentIndex=Player.equipmentIndex%equipmentNames.Length;
+        Equip(transform.Find("Offset/"+equipmentNames[Player.equipmentIndex]));
     }
     public void Equip(Transform itemTrans){
+        lastEquipmentIndex=Player.equipmentIndex;
         if (m_CurrentItem != null){
-            // m_CurrentItem.gameObject.SetActive(false);
-            Destroy(m_CurrentItem.gameObject);
+            m_CurrentItem.gameObject.SetActive(false);
+            // Destroy(m_CurrentItem.gameObject);
         }
 
         m_CurrentItem=itemTrans.GetComponent<EquipmentItem>();
@@ -102,6 +107,10 @@ public class EquipmentHandler : PlayerComponent
     }
 
     void Update(){
+        if(Player.equipmentIndex!=lastEquipmentIndex){
+            Player.equipmentIndex=Player.equipmentIndex%equipmentNames.Length;
+            Equip(transform.Find("Offset/"+equipmentNames[Player.equipmentIndex]));
+        }
         // for (int i = 0; i < m_QueuedCamForces.Count; i++){
         //     if (Time.time >= m_QueuedCamForces[i].PlayTime){
         //         var force = m_QueuedCamForces[i].DelayedForce.Force;
